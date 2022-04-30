@@ -3307,7 +3307,7 @@ MonoBehaviour:
   _vectorOperationsObjects: {fileID: 109972388}
   _transformationsUI: {fileID: 113172323}
   _transformationsObjects: {fileID: 1413937041}
-  _startingVisualizationState: 0
+  _startingVisualizationState: 1
 --- !u!1 &776772459
 GameObject:
   m_ObjectHideFlags: 0
@@ -7585,6 +7585,9 @@ MonoBehaviour:
   _secondRow: {fileID: 1993252705}
   _thirdRow: {fileID: 556655965}
   _fourthRow: {fileID: 1212048114}
+  _ghostPrefab: {fileID: 6140961438387752156, guid: 8cc2b3b86759b4442b5e03bc22f0758c, type: 3}
+  _maxGhosts: 3
+  _ghostsStartingAlpha: 80
 --- !u!1 &1559861966
 GameObject:
   m_ObjectHideFlags: 0
@@ -8323,7 +8326,7 @@ GameObject:
   - component: {fileID: 1684045674}
   - component: {fileID: 1684045673}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8337,7 +8340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684045670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 1413937042}
