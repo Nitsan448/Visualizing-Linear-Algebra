@@ -31,7 +31,7 @@ public class CameraOrbit : MonoBehaviour
 		{
 			_allowRotation = false;
 		}
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(2))
         {
 			//Allow moving around
 			//transform.parent.position = new Vector3(-1, 0, 0);
@@ -69,7 +69,7 @@ public class CameraOrbit : MonoBehaviour
 
 	private void UpdateCameraTransform()
 	{
-		_quaternion = Quaternion.Euler(_localRotation.y, _localRotation.x - 180, 0);
+		_quaternion = Quaternion.Euler(_localRotation.y, _localRotation.x, 0);
 		transform.parent.localRotation = Quaternion.Lerp(transform.parent.localRotation, _quaternion, Time.deltaTime * _orbitDampening);
 
 		//Only update if camera changed

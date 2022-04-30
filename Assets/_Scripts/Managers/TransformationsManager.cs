@@ -32,20 +32,37 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 		switch (transformValueToManipulate)
 		{
             case eTransformValue.Position:
-                ObjectToTransform.position = _matrix * ObjectToTransform.position;
+                ApplyTransformationOnPosition();
                 break;
 
             case eTransformValue.Rotation:
-                Vector3 newRotation = _matrix * ObjectToTransform.eulerAngles;
-                ObjectToTransform.rotation = Quaternion.Euler(newRotation);
+                ApplyTransformationOnRotation();
                 break;
 
             case eTransformValue.Scale:
-                ObjectToTransform.localScale = _matrix * ObjectToTransform.localScale;
+                ApplyTransformationOnScale();
                 break;
         }
 
         TransformationApplied?.Invoke();
+    }
+
+    private void ApplyTransformationOnPosition()
+	{
+        Vector4 currentPosition = new Vector4(ObjectToTransform.position.x, ObjectToTransform.position.y, ObjectToTransform.position.z, 1);
+        ObjectToTransform.position = _matrix * currentPosition;
+    }
+
+    private void ApplyTransformationOnRotation()
+    {
+        Vector3 newRotation = _matrix * ObjectToTransform.eulerAngles;
+        ObjectToTransform.rotation = Quaternion.Euler(newRotation);
+    }
+
+    private void ApplyTransformationOnScale()
+    {
+        Vector4 currentScale = new Vector4(ObjectToTransform.localScale.x, ObjectToTransform.localScale.y, ObjectToTransform.localScale.z, 1);
+        ObjectToTransform.localScale = _matrix * currentScale;
     }
 
     private void UpdateMatrix()
