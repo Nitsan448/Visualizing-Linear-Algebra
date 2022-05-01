@@ -9,7 +9,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 {
     public static Action TransformationApplied;
     public eManagerStatus status { get; private set; }
-    public Transform ObjectToTransform;
+    public Transform ObjectToTransform { get; private set; }
     public eTransformValue transformValueToManipulate = eTransformValue.Position;
 
     [SerializeField] private TMP_InputField _firstRow;
@@ -17,19 +17,11 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     [SerializeField] private TMP_InputField _thirdRow;
     [SerializeField] private TMP_InputField _fourthRow;
 
-    [SerializeField] private GameObject _ghostPrefab;
-    [SerializeField] private int _maxGhosts;
-    [SerializeField] private int _ghostsStartingAlpha;
-
-    private float _alphaChangeBetweenGhosts;
-
     private Matrix4x4 _matrix;
-    private List<GameObject> _ghosts = new List<GameObject>();
 
     public void Startup()
     {
         status = eManagerStatus.Initializing;
-        _alphaChangeBetweenGhosts = _ghostsStartingAlpha / _maxGhosts;
         status = eManagerStatus.Started;
     }
 
@@ -37,64 +29,17 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 	{
         UpdateMatrix();
 
-        UpdateGhosts();
-
         TransformObject();
 
         TransformationApplied?.Invoke();
     }
 
-    private void UpdateGhosts()
-	{
-        if (_ghosts.Count < _maxGhosts)
-        {
-            CreateGhost();
-        }
-		else
-		{
-            UpdateGhostsTransform();
-		}
-
-        SetGhostsTransperancy();
-    }
-
-    private void CreateGhost()
-	{
-        GameObject newGhost = Instantiate(_ghostPrefab);
-        TransformExtensions.SetObjectTransform(newGhost.transform, ObjectToTransform);
-        _ghosts.Add(newGhost);
-    }
-
-    private void UpdateGhostsTransform()
-	{
-        for (int i = 0; i < _ghosts.Count; i++)
-        {
-            GameObject ghost = _ghosts[i];
-            if (i != _ghosts.Count - 1)
-            {
-                TransformExtensions.SetObjectTransform(ghost.transform, _ghosts[i+1].transform);
-            }
-            else
-            {
-                TransformExtensions.SetObjectTransform(ghost.transform, ObjectToTransform);
-            }
-        }
-    }
-
-    private void SetGhostsTransperancy()
+    private void UpdateMatrix()
     {
-        for (int i = 0; i < _ghosts.Count; i++)
-        {
-            int numberOfAlphaChanges = _ghosts.Count - (i + 1);
-            SetGhostTransperancy(_ghosts[i], numberOfAlphaChanges);
-        }
-    }
-
-    private void SetGhostTransperancy(GameObject ghost, int numberOfAlphaChanges)
-	{
-        Material material = ghost.GetComponent<MeshRenderer>().material;
-        float newAlphaValue = _ghostsStartingAlpha - _alphaChangeBetweenGhosts * numberOfAlphaChanges;
-        material.color = new Color(material.color.r, material.color.g, material.color.b, newAlphaValue / 255);
+        SetMatrixRow(0, _firstRow.text);
+        SetMatrixRow(1, _secondRow.text);
+        SetMatrixRow(2, _thirdRow.text);
+        SetMatrixRow(3, _fourthRow.text);
     }
 
     private void TransformObject()
@@ -131,14 +76,6 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     {
         Vector4 currentScale = TransformExtensions.ConvertToVector4(ObjectToTransform.localScale);
         ObjectToTransform.localScale = _matrix * currentScale;
-    }
-
-    private void UpdateMatrix()
-	{
-        SetMatrixRow(0, _firstRow.text);
-        SetMatrixRow(1, _secondRow.text);
-        SetMatrixRow(2, _thirdRow.text);
-        SetMatrixRow(3, _fourthRow.text);
     }
 
     private void SetMatrixRow(int row, string vector)

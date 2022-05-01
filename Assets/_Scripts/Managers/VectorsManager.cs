@@ -9,14 +9,14 @@ public class VectorsManager : MonoBehaviour, IGameManager
 
     public eManagerStatus status { get; private set; }
     public object result { get; private set; }
-    public VectorOperation vectorOperation { get; private set; }
+    public VectorsOperator vectorOperation { get; private set; }
     public Dictionary<int, Vector3> vectorByIndex{ get; private set; }
 
 	public void Startup()
     {
         status = eManagerStatus.Initializing;
 
-        vectorOperation = new VectorOperation(eVectorOperations.dotProduct);
+        vectorOperation = new VectorsOperator(eVectorOperations.DotProduct);
         InitializeVectorByIndexDictionary();
         UpdateResult();
 
@@ -41,9 +41,4 @@ public class VectorsManager : MonoBehaviour, IGameManager
         result = vectorOperation.DoOperation(vectorByIndex[1], vectorByIndex[2]);
         VectorsUpdated?.Invoke();
     }
-
-    private Vector3 FloatListToVector(List<float> floatList)
-	{
-        return new Vector3(floatList[0], floatList[1], floatList[2]);
-	}
 }

@@ -83,6 +83,11 @@ public class CameraOrbit : MonoBehaviour
 		}
 
 		float newYRotation = transform.parent.eulerAngles.y;
+		CheckIfXAxisWasCircled(previousYRotation, newYRotation);
+	}
+
+	private void CheckIfXAxisWasCircled(float previousYRotation, float newYRotation)
+	{
 		bool axisCircledFromRight = (previousYRotation > 270 && newYRotation < 270) || (previousYRotation < 270 && newYRotation > 270);
 		bool axisCircledFromLeft = (previousYRotation > 90 && newYRotation < 90) || (previousYRotation < 90 && newYRotation > 90);
 		bool yRotationChangedBy360 = (previousYRotation > 358 && newYRotation < 2) || previousYRotation < 2 && newYRotation > 358;

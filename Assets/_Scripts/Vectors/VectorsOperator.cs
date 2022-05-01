@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class VectorOperation
+public class VectorsOperator
 {
     public eVectorOperations operation;
 
-    public VectorOperation(eVectorOperations vectorOperation)
+    public VectorsOperator(eVectorOperations vectorOperation)
     {
         operation = vectorOperation;
     }
@@ -18,16 +18,16 @@ public class VectorOperation
     {
         switch (operation)
         {
-            case eVectorOperations.dotProduct:
+            case eVectorOperations.DotProduct:
                 return Vector3.Dot(firstVector, secondVector);
 
-            case eVectorOperations.crossProduct:
+            case eVectorOperations.CrossProduct:
                 return Vector3.Cross(firstVector, secondVector);
 
-            case eVectorOperations.reflection:
+            case eVectorOperations.Reflection:
                 return Vector3.Reflect(firstVector, secondVector);
 
-            case eVectorOperations.projection:
+            case eVectorOperations.Projection:
                 return Vector3.Project(firstVector, secondVector);
         }
         return Vector3.zero;

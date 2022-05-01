@@ -29,11 +29,11 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 
 		switch (VisualizationState)
 		{
-			case eVisualizationState.vectorOperations:
+			case eVisualizationState.VectorOperations:
 				UpdateVectorOperationsEnabledState(true);
 				UpdateTransformationsEnabledState(false);
 				break;
-			case eVisualizationState.matrixTransformations:
+			case eVisualizationState.MatrixTransformations:
 				UpdateTransformationsEnabledState(true);
 				UpdateVectorOperationsEnabledState(false);
 				break;

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public enum eVisualizationState
 {
-	vectorOperations,
-	matrixTransformations
+	VectorOperations,
+	MatrixTransformations
 }

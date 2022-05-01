@@ -15,6 +15,21 @@ public class VectorMouseController : MonoBehaviour
     }
 	private void ControlVectorsWithMouse()
     {
+        Vector3 worldPosition = GetMousePositionInWorld();
+
+        if (controlFirstVector)
+        {
+            Managers.Vectors.vectorByIndex[1] = worldPosition;
+        }
+        else
+        {
+            Managers.Vectors.vectorByIndex[2] = worldPosition;
+        }
+        Managers.Vectors.UpdateResult();
+    }
+
+    private Vector3 GetMousePositionInWorld()
+	{
         Plane plane = new Plane(Vector3.back, 0);
         float distance;
         Vector3 worldPosition = Vector3.zero;
@@ -23,19 +38,6 @@ public class VectorMouseController : MonoBehaviour
         {
             worldPosition = ray.GetPoint(distance);
         }
-
-        if (controlFirstVector)
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Vector2 vector = Camera.main.ScreenToWorldPoint(mousePos);
-            Managers.Vectors.vectorByIndex[1] = worldPosition;
-        }
-        else
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Vector2 vector = Camera.main.ScreenToWorldPoint(mousePos);
-            Managers.Vectors.vectorByIndex[2] = worldPosition;
-        }
-        Managers.Vectors.UpdateResult();
+        return worldPosition;
     }
 }

@@ -17,13 +17,12 @@ public class CursorSetter: MonoBehaviour
     private Button[] _buttonsInScene;
     private TMP_InputField[] _tmpInputFieldsInScene;
     private InputField[] _inputFieldsInScene;
-    // Start is called before the first frame update
 
     private void Start()
 	{
 		if (_addCursorScriptToPrefabs)
 		{
-            AddCursorOnHoverScriptToUIElements();
+            AddCursorOnHoverScriptToPrefabs();
 		}
 
         _standardCursor = Resources.Load<Texture2D>("Cursors/StandardCursor");
@@ -32,7 +31,7 @@ public class CursorSetter: MonoBehaviour
         SetCursorToStandard();
     }
 
-    private void AddCursorOnHoverScriptToUIElements()
+    private void AddCursorOnHoverScriptToPrefabs()
 	{
         _buttonsInScene = Resources.FindObjectsOfTypeAll<Button>();
         _tmpInputFieldsInScene = Resources.FindObjectsOfTypeAll<TMP_InputField>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TransformExtensions
 {
-    public static void SetObjectTransform(Transform currentTransform, Transform newTransform)
+    public static void CopyTransform(Transform currentTransform, Transform newTransform)
 	{
 		currentTransform.position = newTransform.position;
 		currentTransform.rotation = newTransform.rotation;

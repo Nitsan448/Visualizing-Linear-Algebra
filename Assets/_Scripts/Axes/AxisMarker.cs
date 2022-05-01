@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AxisMarking : MonoBehaviour
+public class AxisMarker : MonoBehaviour
 {
     [SerializeField] private GameObject _axisMarkPrefab;
     [SerializeField] private int markingIncrement = 1;
@@ -46,27 +46,27 @@ public class AxisMarking : MonoBehaviour
             case eAxes.X:
                 for (float i = startPoint.x; i < endPoint.x; i += markingIncrement)
                 {
-                    CreateLine(new Vector3(i, -0.05f, 0), new Vector3(i, 0.05f, 0));
+                    CreateMarker(new Vector3(i, -0.05f, 0), new Vector3(i, 0.05f, 0));
                 }
                 break;
 
             case eAxes.Y:
                 for (float i = startPoint.y; i < endPoint.y; i += markingIncrement)
                 {
-                    CreateLine(new Vector3(-0.05f, i, 0), new Vector3(0.05f, i, 0));
+                    CreateMarker(new Vector3(-0.05f, i, 0), new Vector3(0.05f, i, 0));
                 }
                 break;
 
             case eAxes.Z:
                 for (float i = startPoint.z; i < endPoint.z; i += markingIncrement)
                 {
-                    CreateLine(new Vector3(0, -0.05f, i), new Vector3(0, 0.05f, i));
+                    CreateMarker(new Vector3(0, -0.05f, i), new Vector3(0, 0.05f, i));
                 }
                 break;
         }
     }
 
-    private void CreateLine(Vector3 startPoint, Vector3 endPoint)
+    private void CreateMarker(Vector3 startPoint, Vector3 endPoint)
 	{
         GameObject axisMark = Instantiate(_axisMarkPrefab, gameObject.transform);
         LineRenderer axisMarkLine = axisMark.GetComponent<LineRenderer>();
