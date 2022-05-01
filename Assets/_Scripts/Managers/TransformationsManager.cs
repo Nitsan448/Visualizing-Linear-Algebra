@@ -61,38 +61,53 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 	{
         if (_ghosts.Count < _maxGhosts)
         {
+            //Add material change
             GameObject newGhost = Instantiate(_ghostPrefab);
             newGhost.transform.position = ObjectToTransform.position;
             newGhost.transform.rotation = ObjectToTransform.rotation;
             newGhost.transform.localScale = ObjectToTransform.localScale;
             _ghosts.Add(newGhost);
         }
-
-        GameObject _nextGhostTransform;
-        for(int i = 0; i < _ghosts.Count; i++)
+		else
 		{
-            Debug.Log(_ghosts[i].transform.position);
-            Material material = _ghosts[i].GetComponent<MeshRenderer>().material;
-            float newAlphaValue = _ghostsStartingAlpha - _alphaChangeBetweenGhosts * (_ghosts.Count - (i+1));
-            material.color = new Color(material.color.r, material.color.g, material.color.b, newAlphaValue / 255);
+            for(int i = 0; i < _ghosts.Count; i++)
+		    {
 
-            GameObject ghost = _ghosts[i];
-            if (i != _ghosts.Count - 1)
-			{
-                if(_ghosts.Count >= _maxGhosts)
-				{
-                    ghost.transform.position = _ghosts[i + 1].transform.position;
-                    ghost.transform.rotation = _ghosts[i + 1].transform.rotation;
-                    ghost.transform.localScale = _ghosts[i + 1].transform.localScale;
+                GameObject ghost = _ghosts[i];
+                if (i != _ghosts.Count - 1)
+			    {
+                    if(_ghosts.Count >= _maxGhosts)
+				    {
+                        ghost.transform.position = _ghosts[i + 1].transform.position;
+                        ghost.transform.rotation = _ghosts[i + 1].transform.rotation;
+                        ghost.transform.localScale = _ghosts[i + 1].transform.localScale;
+                    }
+                }
+			    else
+			    {
+                    ghost.transform.position = ObjectToTransform.position;
+                    ghost.transform.rotation = ObjectToTransform.rotation;
+                    ghost.transform.localScale = ObjectToTransform.localScale;
                 }
             }
-			else
-			{
-                ghost.transform.position = ObjectToTransform.position;
-                ghost.transform.rotation = ObjectToTransform.rotation;
-                ghost.transform.localScale = ObjectToTransform.localScale;
-            }
+		}
+        SetGhostsTransperancy();
+    }
+
+    private void SetGhostsTransperancy()
+    {
+        for (int i = 0; i < _ghosts.Count; i++)
+        {
+            int numberOfAlphaChanges = _ghosts.Count - (i + 1);
+            SetGhostTransperancy(_ghosts[i], numberOfAlphaChanges);
         }
+    }
+
+    private void SetGhostTransperancy(GameObject ghost, int numberOfAlphaChanges)
+	{
+        Material material = ghost.GetComponent<MeshRenderer>().material;
+        float newAlphaValue = _ghostsStartingAlpha - _alphaChangeBetweenGhosts * numberOfAlphaChanges;
+        material.color = new Color(material.color.r, material.color.g, material.color.b, newAlphaValue / 255);
     }
 
     private void ApplyTransformationOnPosition()
