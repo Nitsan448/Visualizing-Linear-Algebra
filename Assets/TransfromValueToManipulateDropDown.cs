@@ -14,14 +14,6 @@ public class TransfromValueToManipulateDropDown : MonoBehaviour
     void Start()
     {
         dropDown = GetComponent<TMP_Dropdown>();
-
-        dropDown.ClearOptions();
-        List<string> options = new List<string>();
-        options.Add(eTransformValue.Position.ToString());
-        options.Add(eTransformValue.Rotation.ToString());
-        options.Add(eTransformValue.Scale.ToString());
-
-        dropDown.AddOptions(options);
         dropDown.onValueChanged.AddListener(delegate { SetTranformationValueToManipulate(); });
         dropDown.value = 0;
     }

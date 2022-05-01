@@ -29,7 +29,7 @@ public class ObjectTransformInput : MonoBehaviour
 
 	private void ChangeObjectValue()
 	{
-        Vector3 newValue = StringExtensions.VectorStringToVector3(_objectPositionInput.text);
+        Vector3 newValue = StringExtensions.StringToVector3(_objectPositionInput.text);
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
@@ -37,12 +37,11 @@ public class ObjectTransformInput : MonoBehaviour
                 break;
 
             case eTransformValue.Rotation:
-                Vector3 newRotation = _objectTransform.eulerAngles;
-                _objectTransform.rotation = Quaternion.Euler(newRotation);
+                _objectTransform.eulerAngles = newValue;
                 break;
 
             case eTransformValue.Scale:
-                _objectTransform.localScale = _objectTransform.localScale;
+                _objectTransform.localScale = newValue;
                 break;
         }
     }

@@ -37,61 +37,48 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 	{
         UpdateMatrix();
 
-        CreateGhostObject();
+        UpdateGhosts();
 
-		switch (transformValueToManipulate)
-		{
-            case eTransformValue.Position:
-                ApplyTransformationOnPosition();
-                break;
-
-            case eTransformValue.Rotation:
-                ApplyTransformationOnRotation();
-                break;
-
-            case eTransformValue.Scale:
-                ApplyTransformationOnScale();
-                break;
-        }
+        TransformObject();
 
         TransformationApplied?.Invoke();
     }
 
-    private void CreateGhostObject()
+    private void UpdateGhosts()
 	{
         if (_ghosts.Count < _maxGhosts)
         {
-            //Add material change
-            GameObject newGhost = Instantiate(_ghostPrefab);
-            newGhost.transform.position = ObjectToTransform.position;
-            newGhost.transform.rotation = ObjectToTransform.rotation;
-            newGhost.transform.localScale = ObjectToTransform.localScale;
-            _ghosts.Add(newGhost);
+            CreateGhost();
         }
 		else
 		{
-            for(int i = 0; i < _ghosts.Count; i++)
-		    {
-
-                GameObject ghost = _ghosts[i];
-                if (i != _ghosts.Count - 1)
-			    {
-                    if(_ghosts.Count >= _maxGhosts)
-				    {
-                        ghost.transform.position = _ghosts[i + 1].transform.position;
-                        ghost.transform.rotation = _ghosts[i + 1].transform.rotation;
-                        ghost.transform.localScale = _ghosts[i + 1].transform.localScale;
-                    }
-                }
-			    else
-			    {
-                    ghost.transform.position = ObjectToTransform.position;
-                    ghost.transform.rotation = ObjectToTransform.rotation;
-                    ghost.transform.localScale = ObjectToTransform.localScale;
-                }
-            }
+            UpdateGhostsTransform();
 		}
+
         SetGhostsTransperancy();
+    }
+
+    private void CreateGhost()
+	{
+        GameObject newGhost = Instantiate(_ghostPrefab);
+        TransformExtensions.SetObjectTransform(newGhost.transform, ObjectToTransform);
+        _ghosts.Add(newGhost);
+    }
+
+    private void UpdateGhostsTransform()
+	{
+        for (int i = 0; i < _ghosts.Count; i++)
+        {
+            GameObject ghost = _ghosts[i];
+            if (i != _ghosts.Count - 1)
+            {
+                TransformExtensions.SetObjectTransform(ghost.transform, _ghosts[i+1].transform);
+            }
+            else
+            {
+                TransformExtensions.SetObjectTransform(ghost.transform, ObjectToTransform);
+            }
+        }
     }
 
     private void SetGhostsTransperancy()
@@ -110,35 +97,53 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         material.color = new Color(material.color.r, material.color.g, material.color.b, newAlphaValue / 255);
     }
 
+    private void TransformObject()
+	{
+        switch (transformValueToManipulate)
+        {
+            case eTransformValue.Position:
+                ApplyTransformationOnPosition();
+                break;
+
+            case eTransformValue.Rotation:
+                ApplyTransformationOnRotation();
+                break;
+
+            case eTransformValue.Scale:
+                ApplyTransformationOnScale();
+                break;
+        }
+    }
+
     private void ApplyTransformationOnPosition()
 	{
-        Vector4 currentPosition = new Vector4(ObjectToTransform.position.x, ObjectToTransform.position.y, ObjectToTransform.position.z, 1);
+        Vector4 currentPosition = TransformExtensions.ConvertToVector4(ObjectToTransform.position);
         ObjectToTransform.position = _matrix * currentPosition;
     }
 
     private void ApplyTransformationOnRotation()
     {
-        Vector3 newRotation = _matrix * ObjectToTransform.eulerAngles;
-        ObjectToTransform.rotation = Quaternion.Euler(newRotation);
+        Vector4 currentRotation = TransformExtensions.ConvertToVector4(ObjectToTransform.eulerAngles);
+        ObjectToTransform.eulerAngles = _matrix * currentRotation;
     }
 
     private void ApplyTransformationOnScale()
     {
-        Vector4 currentScale = new Vector4(ObjectToTransform.localScale.x, ObjectToTransform.localScale.y, ObjectToTransform.localScale.z, 1);
+        Vector4 currentScale = TransformExtensions.ConvertToVector4(ObjectToTransform.localScale);
         ObjectToTransform.localScale = _matrix * currentScale;
     }
 
     private void UpdateMatrix()
 	{
-        FloatListToMatrixRow(0, StringExtensions.VectorStringToFloatList(_firstRow.text));
-        FloatListToMatrixRow(1, StringExtensions.VectorStringToFloatList(_secondRow.text));
-        FloatListToMatrixRow(2, StringExtensions.VectorStringToFloatList(_thirdRow.text));
-        FloatListToMatrixRow(3, StringExtensions.VectorStringToFloatList(_fourthRow.text));
+        SetMatrixRow(0, _firstRow.text);
+        SetMatrixRow(1, _secondRow.text);
+        SetMatrixRow(2, _thirdRow.text);
+        SetMatrixRow(3, _fourthRow.text);
     }
 
-    private void FloatListToMatrixRow(int row, List<float> floatList)
-    {
-        Vector4 result = new Vector4(floatList[0], floatList[1], floatList[2], floatList[3]);
+    private void SetMatrixRow(int row, string vector)
+	{
+        Vector4 result = StringExtensions.StringToVector4(vector);
         _matrix.SetRow(row, result);
     }
 }

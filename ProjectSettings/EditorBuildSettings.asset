@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/VisualizingLinearAlgebra.unity
+    guid: 7da2969808fc3034f8276217e7f279e6
   m_configObjects: {}

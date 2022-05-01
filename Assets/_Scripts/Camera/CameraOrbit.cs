@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System;
 
 public class CameraOrbit : MonoBehaviour
 {
+	public static Action XAxisCircled;
 
-    [SerializeField] private float _cameraDistance = 10f;
+	[SerializeField] private float _cameraDistance = 10f;
     [SerializeField] private float _mouseSensitivity = 4f;
 	[SerializeField] private float _scrollSensitvity = 2f;
 	[SerializeField] private float _orbitDampening = 10f;
@@ -69,6 +71,8 @@ public class CameraOrbit : MonoBehaviour
 
 	private void UpdateCameraTransform()
 	{
+		float previousYRotation = transform.parent.eulerAngles.y;
+
 		_quaternion = Quaternion.Euler(_localRotation.y, _localRotation.x, 0);
 		transform.parent.localRotation = Quaternion.Lerp(transform.parent.localRotation, _quaternion, Time.deltaTime * _orbitDampening);
 
@@ -76,6 +80,15 @@ public class CameraOrbit : MonoBehaviour
 		if (transform.localPosition.z != _cameraDistance * -1f)
 		{
 			transform.localPosition = new Vector3(0f, 0f, Mathf.Lerp(transform.localPosition.z, _cameraDistance * -1f, Time.deltaTime * _scrollDampening));
+		}
+
+		float newYRotation = transform.parent.eulerAngles.y;
+		bool axisCircledFromRight = (previousYRotation > 270 && newYRotation < 270) || (previousYRotation < 270 && newYRotation > 270);
+		bool axisCircledFromLeft = (previousYRotation > 90 && newYRotation < 90) || (previousYRotation < 90 && newYRotation > 90);
+		bool yRotationChangedBy360 = (previousYRotation > 358 && newYRotation < 2) || previousYRotation < 2 && newYRotation > 358;
+		if ((axisCircledFromLeft || axisCircledFromRight) && !yRotationChangedBy360)
+		{
+			XAxisCircled?.Invoke();
 		}
 	}
 

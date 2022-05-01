@@ -5,6 +5,7 @@ using UnityEngine;
 public class VisualizationStateManager: MonoBehaviour, IGameManager
 {
 	public eManagerStatus status { get; private set; }
+	public static eVisualizationState VisualizationState { get; private set; }
 
 	[SerializeField] private GameObject _vectorOperationsUI;
 	[SerializeField] private GameObject _vectorOperationsObjects;
@@ -14,7 +15,6 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 
 	[SerializeField] private eVisualizationState _startingVisualizationState;
 
-	private static eVisualizationState _visualizationState;
 
 	public void Startup()
 	{
@@ -25,9 +25,9 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 
 	public void SetVisualizationState(eVisualizationState newState)
 	{
-		_visualizationState = newState;
+		VisualizationState = newState;
 
-		switch (_visualizationState)
+		switch (VisualizationState)
 		{
 			case eVisualizationState.vectorOperations:
 				UpdateVectorOperationsEnabledState(true);

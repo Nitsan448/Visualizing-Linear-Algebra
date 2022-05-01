@@ -13,15 +13,8 @@ public class VisualizationStateDropDown : MonoBehaviour
     void Start()
     {
         dropDown = GetComponent<TMP_Dropdown>();
-
-        dropDown.ClearOptions();
-        List<string> options = new List<string>();
-        options.Add(eVisualizationState.vectorOperations.ToString());
-        options.Add(eVisualizationState.matrixTransformations.ToString());
-
-        dropDown.AddOptions(options);
         dropDown.onValueChanged.AddListener(delegate { SetVisualizationState(dropDown.value); });
-        dropDown.value = 0;
+        dropDown.value = (int)VisualizationStateManager.VisualizationState;
     }
 
 

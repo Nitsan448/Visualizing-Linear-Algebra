@@ -13,15 +13,6 @@ public class ChooseOperationDropDown : MonoBehaviour
     void Start()
     {
         dropDown = GetComponent<TMP_Dropdown>();
-
-        dropDown.ClearOptions();
-        List<string> options = new List<string>();
-        options.Add(eVectorOperations.dotProduct.ToString());
-        options.Add(eVectorOperations.crossProduct.ToString());
-        options.Add(eVectorOperations.reflection.ToString());
-        options.Add(eVectorOperations.projection.ToString());
-
-        dropDown.AddOptions(options);
         dropDown.onValueChanged.AddListener(delegate { SetVectorOperation(dropDown.value); });
         dropDown.value = 0;
     }

@@ -35,7 +35,7 @@ public static class StringExtensions
  //       in
 	//}
 
-    public static Vector3 VectorStringToVector3(string vector)
+    public static Vector3 StringToVector3(string vector)
 	{
         List<float> floatList = VectorStringToFloatList(vector);
         return new Vector3(floatList[0], floatList[1], floatList[2]);
@@ -43,7 +43,20 @@ public static class StringExtensions
 
     public static string Vector3ToString(Vector3 vector)
 	{
+        //TODO: use string builder
         string newVectorText = "(" + vector.x.ToString("0.0") + ", " + vector.y.ToString("0.0") + ", " + vector.z.ToString("0.0") + ")";
+        return newVectorText;
+    }
+
+    public static Vector4 StringToVector4(string vector)
+    {
+        List<float> floatList = VectorStringToFloatList(vector);
+        return new Vector4(floatList[0], floatList[1], floatList[2], floatList[3]);
+    }
+
+    public static string Vector4ToString(Vector4 vector)
+    {
+        string newVectorText = "(" + vector.x.ToString("0.0") + ", " + vector.y.ToString("0.0") + ", " + vector.z.ToString("0.0") + vector.w.ToString("0.0") + ")";
         return newVectorText;
     }
 }

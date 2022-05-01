@@ -32,7 +32,7 @@ public class VectorsManager : MonoBehaviour, IGameManager
 
     public void SetVectorByString(int vector, string newVector)
     {
-        vectorByIndex[vector] = StringExtensions.VectorStringToVector3(newVector);
+        vectorByIndex[vector] = StringExtensions.StringToVector3(newVector);
         UpdateResult();
     }
 

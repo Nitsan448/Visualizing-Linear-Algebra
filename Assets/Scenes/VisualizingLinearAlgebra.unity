@@ -1556,7 +1556,11 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options: []
+    m_Options:
+    - m_Text: Vector Operations
+      m_Image: {fileID: 0}
+    - m_Text: Matrix Transformations
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1813,7 +1817,13 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options: []
+    m_Options:
+    - m_Text: Position
+      m_Image: {fileID: 0}
+    - m_Text: Rotation
+      m_Image: {fileID: 0}
+    - m_Text: Scale
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2037,8 +2047,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4288020480
+  m_fontColor: {r: 0, g: 0, b: 0.5882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3183,7 +3193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Position
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3192,7 +3202,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3307,7 +3317,7 @@ MonoBehaviour:
   _vectorOperationsObjects: {fileID: 109972388}
   _transformationsUI: {fileID: 113172323}
   _transformationsObjects: {fileID: 1413937041}
-  _startingVisualizationState: 1
+  _startingVisualizationState: 0
 --- !u!1 &776772459
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,7 +3470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+  m_Color: {r: 0, g: 0.5882353, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3687,7 +3697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+  m_Color: {r: 0.5882353, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4774,7 +4784,7 @@ GameObject:
   - component: {fileID: 994280812}
   - component: {fileID: 994280816}
   m_Layer: 5
-  m_Name: ObjectPostionInput
+  m_Name: ObjectTransformInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5374,6 +5384,7 @@ MonoBehaviour:
   markingIncrement: 1
   _positionTextOffset: {x: 0.2, y: 0, z: 0}
   _axis: 1
+  _cameraParent: {fileID: 69175533}
 --- !u!1 &1107483098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6822,6 +6833,7 @@ MonoBehaviour:
   markingIncrement: 1
   _positionTextOffset: {x: 0, y: 0.075, z: 0}
   _axis: 2
+  _cameraParent: {fileID: 69175533}
 --- !u!1 &1380257382
 GameObject:
   m_ObjectHideFlags: 0
@@ -7691,7 +7703,15 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options: []
+    m_Options:
+    - m_Text: Dot Product
+      m_Image: {fileID: 0}
+    - m_Text: Cross Product
+      m_Image: {fileID: 0}
+    - m_Text: Reflection
+      m_Image: {fileID: 0}
+    - m_Text: Projection
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7927,7 +7947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Dot Product
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7936,7 +7956,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8944,6 +8964,7 @@ MonoBehaviour:
   markingIncrement: 1
   _positionTextOffset: {x: 0, y: 0.075, z: 0}
   _axis: 0
+  _cameraParent: {fileID: 69175533}
 --- !u!1001 &1804319144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10060,7 +10081,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Vector Operations
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10069,7 +10090,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
