@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class CursorSetter: MonoBehaviour
 {
+    [SerializeField] private bool _addSetCursorOnHoverToActiveChildren;
+
     private static Texture2D _standardCursor;
     private static Texture2D _inputFieldCursor;
     private static Texture2D _buttonCursor;
@@ -16,9 +18,13 @@ public class CursorSetter: MonoBehaviour
     private TMP_InputField[] _tmpInputFieldsInChildren;
     private InputField[] _inputFieldsInSceneChildren;
 
+
     private void Start()
 	{
-        AddCursorOnHoverScriptToChildren();
+		if (_addSetCursorOnHoverToActiveChildren)
+		{
+            AddCursorOnHoverScriptToActiveChildren();
+		}
 
         _standardCursor = Resources.Load<Texture2D>("Cursors/StandardCursor");
         _inputFieldCursor = Resources.Load<Texture2D>("Cursors/InputFieldCursor");
@@ -26,7 +32,7 @@ public class CursorSetter: MonoBehaviour
         SetCursorToStandard();
     }
 
-    private void AddCursorOnHoverScriptToChildren()
+    private void AddCursorOnHoverScriptToActiveChildren()
 	{
         _buttonsInChildren = GetComponentsInChildren<Button>();
         _tmpInputFieldsInChildren = GetComponentsInChildren<TMP_InputField>();

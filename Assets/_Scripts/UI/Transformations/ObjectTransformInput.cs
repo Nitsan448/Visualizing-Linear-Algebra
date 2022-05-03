@@ -52,15 +52,18 @@ public class ObjectTransformInput : MonoBehaviour
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
-                newText = StringExtensions.Vector3ToString(_objectTransform.position);
+                Vector4 position = TransformExtensions.ConvertToVector4(_objectTransform.position, Managers.Transformations.positionVectorWValue);
+                newText = StringExtensions.Vector4ToString(position);
                 break;
 
             case eTransformValue.Rotation:
-                newText = StringExtensions.Vector3ToString(_objectTransform.eulerAngles);
+                Vector4 rotationEuler = TransformExtensions.ConvertToVector4(_objectTransform.eulerAngles, Managers.Transformations.rotationVectorWValue);
+                newText = StringExtensions.Vector4ToString(rotationEuler);
                 break;
 
             case eTransformValue.Scale:
-                newText = StringExtensions.Vector3ToString(_objectTransform.localScale);
+                Vector4 scale = TransformExtensions.ConvertToVector4(_objectTransform.localScale, Managers.Transformations.scaleVectorWValue);
+                newText = StringExtensions.Vector4ToString(scale);
                 break;
         }
         _objectPositionInput.text = newText;

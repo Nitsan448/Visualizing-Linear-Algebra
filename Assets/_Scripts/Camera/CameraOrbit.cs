@@ -88,13 +88,16 @@ public class CameraOrbit : MonoBehaviour
 
 	private void CheckIfXAxisWasCircled(float previousYRotation, float newYRotation)
 	{
-		bool axisCircledFromRight = (previousYRotation > 270 && newYRotation < 270) || (previousYRotation < 270 && newYRotation > 270);
-		bool axisCircledFromLeft = (previousYRotation > 90 && newYRotation < 90) || (previousYRotation < 90 && newYRotation > 90);
-		bool yRotationChangedBy360 = (previousYRotation > 358 && newYRotation < 2) || previousYRotation < 2 && newYRotation > 358;
-		if ((axisCircledFromLeft || axisCircledFromRight) && !yRotationChangedBy360)
+		if (IsBehindXAxis(previousYRotation) ^ IsBehindXAxis(newYRotation))
 		{
 			XAxisCircled?.Invoke();
 		}
+
+	}
+
+	private bool IsBehindXAxis(float yRotation)
+	{
+		return yRotation > 90 && yRotation < 270;
 	}
 
 	public void ResetCamera()

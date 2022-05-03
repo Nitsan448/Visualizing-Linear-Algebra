@@ -16,6 +16,12 @@ public class VectorsDrawer : MonoBehaviour
         VectorsManager.VectorsUpdated += UpdateAllLines;
     }
 
+	private void Start()
+	{
+        //Remove and fix source problem (script execution order)
+        UpdateAllLines();
+	}
+
 	private void OnDisable()
 	{
         VectorsManager.VectorsUpdated -= UpdateAllLines;

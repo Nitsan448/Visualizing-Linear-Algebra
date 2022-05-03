@@ -11,9 +11,9 @@ public static class TransformExtensions
 		currentTransform.localScale = newTransform.localScale;
 	}
 
-	public static Vector4 ConvertToVector4(Vector3 vectorToConvert)
+	public static Vector4 ConvertToVector4(Vector3 vectorToConvert, float wValue = 1)
 	{
-		Vector4 newVector = new Vector4(vectorToConvert.x, vectorToConvert.y, vectorToConvert.z, 1);
+		Vector4 newVector = new Vector4(vectorToConvert.x, vectorToConvert.y, vectorToConvert.z, wValue);
 		return newVector;
 	}
 }

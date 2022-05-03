@@ -21,10 +21,14 @@ public static class StringExtensions
 
     public static string Vector3ToString(Vector3 vector)
     {
-        //TODO: optimize with string builder
-        string newVectorText = "(" + vector.x.ToString(NumberOfDecimals) + ", " + 
-            vector.y.ToString(NumberOfDecimals) + ", " + vector.z.ToString(NumberOfDecimals) + ")";
-        return newVectorText;
+        StringBuilder stringBuilder = new StringBuilder("(");
+        stringBuilder.Append(vector.x.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.y.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
+        stringBuilder.Append(")");
+        return stringBuilder.ToString();
     }
 
     public static Vector4 StringToVector4(string vector)
@@ -35,9 +39,16 @@ public static class StringExtensions
 
     public static string Vector4ToString(Vector4 vector)
     {
-        string newVectorText = "(" + vector.x.ToString(NumberOfDecimals) + ", " + vector.y.ToString(NumberOfDecimals)
-            + ", " + vector.z.ToString(NumberOfDecimals) + ", " + vector.w.ToString(NumberOfDecimals) + ")";
-        return newVectorText;
+        StringBuilder stringBuilder = new StringBuilder("(");
+        stringBuilder.Append(vector.x.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.y.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.w.ToString(NumberOfDecimals));
+        stringBuilder.Append(")");
+        return stringBuilder.ToString();
     }
 
     public static List<float> VectorStringToFloatList(string vector)

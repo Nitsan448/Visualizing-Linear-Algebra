@@ -17,6 +17,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     [SerializeField] private TMP_InputField _thirdRow;
     [SerializeField] private TMP_InputField _fourthRow;
 
+    public float positionVectorWValue { get; private set; } = 1;
+    public float rotationVectorWValue { get; private set; } = 1;
+    public float scaleVectorWValue { get; private set; } = 1;
+
     private Matrix4x4 _matrix;
 
     public void Startup()
@@ -27,14 +31,14 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void ApplyTransformation()
 	{
-        UpdateMatrix();
+        UpdateMatrixFromUI();
 
         TransformObject();
 
         TransformationApplied?.Invoke();
     }
 
-    private void UpdateMatrix()
+    private void UpdateMatrixFromUI()
     {
         SetMatrixRow(0, _firstRow.text);
         SetMatrixRow(1, _secondRow.text);
@@ -62,20 +66,26 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     private void ApplyTransformationOnPosition()
 	{
-        Vector4 currentPosition = TransformExtensions.ConvertToVector4(ObjectToTransform.position);
-        ObjectToTransform.position = _matrix * currentPosition;
+        Vector4 currentPosition = TransformExtensions.ConvertToVector4(ObjectToTransform.position, positionVectorWValue);
+        Vector4 newPosition = _matrix * currentPosition;
+        positionVectorWValue = newPosition.w;
+        ObjectToTransform.position = newPosition;
     }
 
     private void ApplyTransformationOnRotation()
     {
-        Vector4 currentRotation = TransformExtensions.ConvertToVector4(ObjectToTransform.eulerAngles);
-        ObjectToTransform.eulerAngles = _matrix * currentRotation;
+        Vector4 currentRotation = TransformExtensions.ConvertToVector4(ObjectToTransform.eulerAngles, rotationVectorWValue);
+        Vector4 newRotation = _matrix * currentRotation;
+        rotationVectorWValue = newRotation.w;
+        ObjectToTransform.eulerAngles = newRotation;
     }
 
     private void ApplyTransformationOnScale()
     {
-        Vector4 currentScale = TransformExtensions.ConvertToVector4(ObjectToTransform.localScale);
-        ObjectToTransform.localScale = _matrix * currentScale;
+        Vector4 currentScale = TransformExtensions.ConvertToVector4(ObjectToTransform.localScale, scaleVectorWValue);
+        Vector4 newScale = _matrix * currentScale;
+        scaleVectorWValue = newScale.w;
+        ObjectToTransform.localScale = newScale;
     }
 
     private void SetMatrixRow(int row, string vector)
@@ -86,13 +96,8 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void InvertMatrix()
 	{
+        UpdateMatrixFromUI();
         _matrix = _matrix.inverse;
-        UpdateMatrixUI();
-	}
-
-    public void ResetMatrix()
-	{
-        _matrix = CommonMatrixTransfomations.IdentityMatrix;
         UpdateMatrixUI();
 	}
 
@@ -103,4 +108,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         _thirdRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(2));
         _fourthRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(3));
     }
+
+    public void ChangeToCommonMatrix(int index)
+	{
+        _matrix = CommonMatrixTransfomations.matrixByIndex[index];
+        UpdateMatrixUI();
+	}
 }
