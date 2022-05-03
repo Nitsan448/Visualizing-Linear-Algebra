@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class VectorUI : MonoBehaviour
+public class OperationsVector : MonoBehaviour
 {
 	[SerializeField] private int vectorIndex;
 

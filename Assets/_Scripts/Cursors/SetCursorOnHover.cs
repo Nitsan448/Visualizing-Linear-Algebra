@@ -47,9 +47,9 @@ public class SetCursorOnHover : MonoBehaviour
 
 	private void AddOnPointerExitListener()
 	{
-		EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
-		pointerEnterEntry.eventID = EventTriggerType.PointerExit;
-		pointerEnterEntry.callback.AddListener(delegate { CursorSetter.SetCursorToStandard(); });
-		_eventTrigger.triggers.Add(pointerEnterEntry);
+		EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
+		pointerExitEntry.eventID = EventTriggerType.PointerExit;
+		pointerExitEntry.callback.AddListener(delegate { CursorSetter.SetCursorToStandard(); });
+		_eventTrigger.triggers.Add(pointerExitEntry);
 	}
 }

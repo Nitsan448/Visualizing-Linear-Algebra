@@ -48,7 +48,7 @@ public class CursorSetter: MonoBehaviour
         }
         foreach (InputField inputField in _inputFieldsInSceneChildren)
         {
-			if (inputField.GetComponent<SetCursorOnHover>())
+			if (inputField.GetComponent<SetCursorOnHover>() == null)
 			{
                 inputField.gameObject.AddComponent<SetCursorOnHover>();
 			}

@@ -83,4 +83,24 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         Vector4 result = StringExtensions.StringToVector4(vector);
         _matrix.SetRow(row, result);
     }
+
+    public void InvertMatrix()
+	{
+        _matrix = _matrix.inverse;
+        UpdateMatrixUI();
+	}
+
+    public void ResetMatrix()
+	{
+        _matrix = CommonMatrixTransfomations.IdentityMatrix;
+        UpdateMatrixUI();
+	}
+
+    private void UpdateMatrixUI()
+	{
+        _firstRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(0));
+        _secondRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(1));
+        _thirdRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(2));
+        _fourthRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(3));
+    }
 }

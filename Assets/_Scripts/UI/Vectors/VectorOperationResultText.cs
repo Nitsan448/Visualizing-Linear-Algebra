@@ -21,6 +21,13 @@ public class VectorOperationResultText : MonoBehaviour
 
 	private void UpdateResultText()
 	{
-        _resultText.text = $"Result = {Managers.Vectors.result}";
+		if(Managers.Vectors.vectorOperation.operation == eVectorOperations.DotProduct)
+		{
+			_resultText.text = "Result = " + StringExtensions.FloatToString((float)Managers.Vectors.result);
+		}
+		else
+		{
+			_resultText.text = $"Result = " + StringExtensions.Vector3ToString((Vector3)Managers.Vectors.result);
+		}
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public static class Explanations
 {
     public const string DotProductExplanation = "Dot product explanation";
-    public const string CrossProductExplanation = "Cross product explanation";
+    public const string CrossProductExplanation = "The Cross product of two vectors is a vector that is perpendicular to both of them.\n" +
+		"And thus a normal to the plane containing them.";
     public const string ReflectionExplanation = "Reflection explanation";
     public const string ProjectionExplanation = "Projection explanation";
 
