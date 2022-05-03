@@ -23,17 +23,17 @@ public class SetCursorOnHover : MonoBehaviour
 		Button button = GetComponent<Button>();
 		TMP_InputField tmpInputField = GetComponent<TMP_InputField>();
 		InputField inputField = GetComponent<InputField>();
-		if (button)
+		if (button != null)
 		{
 			_setCursorDelegate = CursorSetter.SetCursorToButton;
 		}
-		else if (inputField || tmpInputField)
+		else if (inputField != null || tmpInputField != null)
 		{
 			_setCursorDelegate = CursorSetter.SetCursorToInputField;
 		}
 		else
 		{
-			this.enabled = false;
+			Destroy(this);
 		}
 	}
 

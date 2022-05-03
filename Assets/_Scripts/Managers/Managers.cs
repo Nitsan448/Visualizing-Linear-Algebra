@@ -27,9 +27,9 @@ public class Managers : MonoBehaviour
     private void SetStartSequenceOrder()
 	{
         startSequence = new List<IGameManager>();
-        startSequence.Add(VisualizationState);
         startSequence.Add(Vectors);
         startSequence.Add(Transformations);
+        startSequence.Add(VisualizationState);
     }
 
     private IEnumerator StartupManagers()

@@ -41,4 +41,10 @@ public class VectorsManager : MonoBehaviour, IGameManager
         result = vectorOperation.DoOperation(vectorByIndex[1], vectorByIndex[2]);
         VectorsUpdated?.Invoke();
     }
+
+    public void NormalizeVector(int vectorIndex)
+	{
+        vectorByIndex[vectorIndex] = vectorByIndex[vectorIndex].normalized;
+        UpdateResult();
+    }
 }

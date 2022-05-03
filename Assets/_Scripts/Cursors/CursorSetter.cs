@@ -8,22 +8,17 @@ using UnityEngine.EventSystems;
 
 public class CursorSetter: MonoBehaviour
 {
-    [SerializeField] private bool _addCursorScriptToPrefabs;
-
     private static Texture2D _standardCursor;
     private static Texture2D _inputFieldCursor;
     private static Texture2D _buttonCursor;
 
-    private Button[] _buttonsInScene;
-    private TMP_InputField[] _tmpInputFieldsInScene;
-    private InputField[] _inputFieldsInScene;
+    private Button[] _buttonsInChildren;
+    private TMP_InputField[] _tmpInputFieldsInChildren;
+    private InputField[] _inputFieldsInSceneChildren;
 
     private void Start()
 	{
-		if (_addCursorScriptToPrefabs)
-		{
-            AddCursorOnHoverScriptToPrefabs();
-		}
+        AddCursorOnHoverScriptToChildren();
 
         _standardCursor = Resources.Load<Texture2D>("Cursors/StandardCursor");
         _inputFieldCursor = Resources.Load<Texture2D>("Cursors/InputFieldCursor");
@@ -31,27 +26,27 @@ public class CursorSetter: MonoBehaviour
         SetCursorToStandard();
     }
 
-    private void AddCursorOnHoverScriptToPrefabs()
+    private void AddCursorOnHoverScriptToChildren()
 	{
-        _buttonsInScene = Resources.FindObjectsOfTypeAll<Button>();
-        _tmpInputFieldsInScene = Resources.FindObjectsOfTypeAll<TMP_InputField>();
-        _inputFieldsInScene = Resources.FindObjectsOfTypeAll<InputField>();
+        _buttonsInChildren = GetComponentsInChildren<Button>();
+        _tmpInputFieldsInChildren = GetComponentsInChildren<TMP_InputField>();
+        _inputFieldsInSceneChildren = GetComponentsInChildren<InputField>();
 
-        foreach(Button button in _buttonsInScene)
+        foreach(Button button in _buttonsInChildren)
 		{
             if(button.GetComponent<SetCursorOnHover>() == null)
 			{
                 button.gameObject.AddComponent<SetCursorOnHover>();
 			}
 		}
-        foreach (TMP_InputField tmpInputField in _tmpInputFieldsInScene)
+        foreach (TMP_InputField tmpInputField in _tmpInputFieldsInChildren)
         {
             if(tmpInputField.GetComponent<SetCursorOnHover>() == null)
 			{
                 tmpInputField.gameObject.AddComponent<SetCursorOnHover>();
 			}
         }
-        foreach (InputField inputField in _inputFieldsInScene)
+        foreach (InputField inputField in _inputFieldsInSceneChildren)
         {
 			if (inputField.GetComponent<SetCursorOnHover>())
 			{

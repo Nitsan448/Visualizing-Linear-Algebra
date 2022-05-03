@@ -9,7 +9,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 {
     public static Action TransformationApplied;
     public eManagerStatus status { get; private set; }
-    public Transform ObjectToTransform { get; private set; }
+    public Transform ObjectToTransform;
     public eTransformValue transformValueToManipulate = eTransformValue.Position;
 
     [SerializeField] private TMP_InputField _firstRow;
