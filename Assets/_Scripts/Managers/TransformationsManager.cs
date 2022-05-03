@@ -101,6 +101,13 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         UpdateMatrixUI();
 	}
 
+    public void TransposeMatrix()
+    {
+        UpdateMatrixFromUI();
+        _matrix = _matrix.transpose;
+        UpdateMatrixUI();
+    }
+
     private void UpdateMatrixUI()
 	{
         _firstRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(0));

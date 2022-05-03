@@ -27,7 +27,7 @@ public class VectorsManager : MonoBehaviour, IGameManager
 	{
         vectorByIndex = new Dictionary<int, Vector3>();
         vectorByIndex[1] = new Vector3(1, 1, 0);
-        vectorByIndex[2] = new Vector3(-1, -1, 0);
+        vectorByIndex[2] = new Vector3(3, 1, 0);
     }
 
     public void SetVectorByString(int vector, string newVector)

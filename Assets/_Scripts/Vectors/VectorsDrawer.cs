@@ -19,6 +19,12 @@ public class VectorsDrawer : MonoBehaviour
 	private void Start()
 	{
         //Remove and fix source problem (script execution order)
+        _firstLine.startWidth = _startWidth;
+        _firstLine.endWidth = _endWidth;
+        _secondLine.startWidth = _startWidth;
+        _secondLine.endWidth = _endWidth;
+        _resultLine.startWidth = _startWidth;
+        _resultLine.endWidth = _endWidth;
         UpdateAllLines();
 	}
 
@@ -46,9 +52,6 @@ public class VectorsDrawer : MonoBehaviour
 
     void UpdateLine(LineRenderer line, Vector3 startPosition, Vector3 endPosition)
     {
-        line.startWidth = _startWidth;
-        line.endWidth = _endWidth;
-
         line.SetPosition(0, startPosition);
         line.SetPosition(1, endPosition);
     }

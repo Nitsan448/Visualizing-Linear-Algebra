@@ -6,14 +6,12 @@ using TMPro;
 
 public class ObjectTransformInput : MonoBehaviour
 {
-    [SerializeField] private Transform _objectTransform;
-
-    private TMP_InputField _objectPositionInput;
+    private TMP_InputField _objectTransformInput;
     // Start is called before the first frame update
     void Start()
     {
-        _objectPositionInput = GetComponent<TMP_InputField>();
-        _objectPositionInput.onValueChanged.AddListener(delegate { ChangeObjectValue(); });
+        _objectTransformInput = GetComponent<TMP_InputField>();
+        _objectTransformInput.onValueChanged.AddListener(delegate { ChangeObjectValue(); });
         UpdateInputFieldText();
     }
 
@@ -29,19 +27,19 @@ public class ObjectTransformInput : MonoBehaviour
 
 	private void ChangeObjectValue()
 	{
-        Vector3 newValue = StringExtensions.StringToVector3(_objectPositionInput.text);
+        Vector3 newValue = StringExtensions.StringToVector3(_objectTransformInput.text);
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
-                _objectTransform.position = newValue;
+                Managers.Transformations.ObjectToTransform.position = newValue;
                 break;
 
             case eTransformValue.Rotation:
-                _objectTransform.eulerAngles = newValue;
+                Managers.Transformations.ObjectToTransform.eulerAngles = newValue;
                 break;
 
             case eTransformValue.Scale:
-                _objectTransform.localScale = newValue;
+                Managers.Transformations.ObjectToTransform.localScale = newValue;
                 break;
         }
     }
@@ -52,20 +50,20 @@ public class ObjectTransformInput : MonoBehaviour
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
-                Vector4 position = TransformExtensions.ConvertToVector4(_objectTransform.position, Managers.Transformations.positionVectorWValue);
+                Vector4 position = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.position, Managers.Transformations.positionVectorWValue);
                 newText = StringExtensions.Vector4ToString(position);
                 break;
 
             case eTransformValue.Rotation:
-                Vector4 rotationEuler = TransformExtensions.ConvertToVector4(_objectTransform.eulerAngles, Managers.Transformations.rotationVectorWValue);
+                Vector4 rotationEuler = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.eulerAngles, Managers.Transformations.rotationVectorWValue);
                 newText = StringExtensions.Vector4ToString(rotationEuler);
                 break;
 
             case eTransformValue.Scale:
-                Vector4 scale = TransformExtensions.ConvertToVector4(_objectTransform.localScale, Managers.Transformations.scaleVectorWValue);
+                Vector4 scale = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.localScale, Managers.Transformations.scaleVectorWValue);
                 newText = StringExtensions.Vector4ToString(scale);
                 break;
         }
-        _objectPositionInput.text = newText;
+        _objectTransformInput.text = newText;
 	}
 }
