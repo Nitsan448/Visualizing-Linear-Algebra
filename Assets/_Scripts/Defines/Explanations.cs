@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Explanations
 {
+    public const string VectorAdditionExplanation = "If we have two vectors v and w, we draw w from the head of v \n" +
+		"Then, v + w is defined to be the vector that goes from the tail of v to the head of w.";
     public const string DotProductExplanation = "The Dot product between v and w, can be thought of as projecting w onto the line that passes " +
 		                        "through the origin and the tip of v, and multiplying the length of this projection by the length of v";
 
@@ -16,6 +18,7 @@ public static class Explanations
 
     public static readonly Dictionary<eVectorOperations, string> ExplanationByVectorOperation = new Dictionary<eVectorOperations, string>()
     {
+        { eVectorOperations.Addition, VectorAdditionExplanation },
         { eVectorOperations.DotProduct, DotProductExplanation },
         { eVectorOperations.CrossProduct, CrossProductExplanation },
         { eVectorOperations.Reflection, ReflectionExplanation },

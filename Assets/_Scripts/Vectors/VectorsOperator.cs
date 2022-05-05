@@ -18,6 +18,9 @@ public class VectorsOperator
     {
         switch (operation)
         {
+            case eVectorOperations.Addition:
+                return firstVector + secondVector;
+
             case eVectorOperations.DotProduct:
                 return Vector3.Dot(firstVector, secondVector);
 
