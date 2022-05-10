@@ -45,22 +45,25 @@ public class ObjectTransformInput : MonoBehaviour
     }
 
     public void UpdateInputFieldText()
-	{
+    {
         string newText = string.Empty;
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
-                newText = StringExtensions.Vector3ToString(Managers.Transformations.ObjectToTransform.position);
+                Vector4 position = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.position, Managers.Transformations.positionVectorWValue);
+                newText = StringExtensions.Vector4ToString(position);
                 break;
 
             case eTransformValue.Rotation:
-                newText = StringExtensions.Vector3ToString(Managers.Transformations.ObjectToTransform.eulerAngles);
+                Vector4 rotationEuler = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.eulerAngles, Managers.Transformations.rotationVectorWValue);
+                newText = StringExtensions.Vector4ToString(rotationEuler);
                 break;
 
             case eTransformValue.Scale:
-                newText = StringExtensions.Vector3ToString(Managers.Transformations.ObjectToTransform.localScale);
+                Vector4 scale = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.localScale, Managers.Transformations.scaleVectorWValue);
+                newText = StringExtensions.Vector4ToString(scale);
                 break;
         }
         _objectTransformInput.text = newText;
-	}
+    }
 }
