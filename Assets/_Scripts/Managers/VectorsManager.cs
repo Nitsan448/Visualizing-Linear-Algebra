@@ -12,6 +12,8 @@ public class VectorsManager : MonoBehaviour, IGameManager
     public VectorsOperator vectorOperation { get; private set; }
     public Dictionary<int, Vector3> vectorByIndex{ get; private set; }
 
+    [SerializeField] private Vector3[] startingVectors;
+
 	public void Startup()
     {
         status = eManagerStatus.Initializing;
@@ -26,8 +28,8 @@ public class VectorsManager : MonoBehaviour, IGameManager
     private void InitializeVectorByIndexDictionary()
 	{
         vectorByIndex = new Dictionary<int, Vector3>();
-        vectorByIndex[1] = new Vector3(1, 1, 0);
-        vectorByIndex[2] = new Vector3(3, 1, 0);
+        vectorByIndex[1] = startingVectors[0];
+        vectorByIndex[2] = startingVectors[1];
     }
 
     public void SetVectorByString(int vector, string newVector)

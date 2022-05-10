@@ -4,17 +4,28 @@ using UnityEngine;
 
 public static class Explanations
 {
-    public const string VectorAdditionExplanation = "If we have two vectors v and w, we draw w from the head of v \n" +
-		"Then, v + w is defined to be the vector that goes from the tail of v to the head of w.";
-    public const string DotProductExplanation = "The Dot product between v and w, can be thought of as projecting w onto the line that passes " +
-		                        "through the origin and the tip of v, and multiplying the length of this projection by the length of v";
+    private static string redV = TextExtensions.GetColoredText(TextExtensions.RedVectorColor, "V");
+    private static string greenW = TextExtensions.GetColoredText(TextExtensions.GreenVectorColor, "W");
 
-    public const string CrossProductExplanation = "The Cross product of two vectors is a vector that is perpendicular to both of them.\n" +
+    public static string VectorAdditionExplanation = "If we have two vectors " + redV + " and " + greenW + "." +
+		" We draw " + greenW + " from the head(front) of " + redV + ".\n" 
+        + TextExtensions.GetColoredText(TextExtensions.BlueVectorColor, "V + W") + 
+        " is defined to be the vector that goes from the tail of " + redV +
+		" to the head of the drawn " + greenW + ".";
+
+    public static string DotProductExplanation = "The Dot product between " + redV + " and " + greenW + 
+        " can be thought of as projecting " + greenW + " onto the line that passes " +
+		"through the origin and the tip of " + redV + ", and multiplying the length of this projection by the length of " + redV + ".";
+
+    public static string CrossProductExplanation = "The Cross product of two vectors is a vector that is perpendicular to both of them.\n" +
 		"And thus a normal to the plane containing them.";
-    public const string ReflectionExplanation = "Reflection of the red vector on the line defined by the green vector and the origin";
-    public const string ProjectionExplanation = "Can be thought of as the shadow of a vector onto another.";
 
-    public const string MatrixTransformationExplanation = "Matrix transformation explanation";
+    public static string ReflectionExplanation = "Reflection of " + redV + " off the plane defined by the " +
+        TextExtensions.GetColoredText(TextExtensions.GreenVectorColor, "normal");
+
+    public static string ProjectionExplanation = "Can be thought of as the shadow of " + redV + " on " + greenW + ".";
+
+    public static string MatrixTransformationExplanation = "Matrix transformation explanation";
 
     public static readonly Dictionary<eVectorOperations, string> ExplanationByVectorOperation = new Dictionary<eVectorOperations, string>()
     {

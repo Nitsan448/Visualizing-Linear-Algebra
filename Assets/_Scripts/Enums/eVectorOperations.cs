@@ -5,9 +5,9 @@ using UnityEngine;
 public enum eVectorOperations
 {
     Addition,
-    Projection,
-    DotProduct,
     CrossProduct,
+    DotProduct,
+    Projection,
     Reflection
 }
 

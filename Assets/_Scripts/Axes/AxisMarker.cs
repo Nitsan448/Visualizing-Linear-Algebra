@@ -22,18 +22,12 @@ public class AxisMarker : MonoBehaviour
 
 	private void OnEnable()
 	{
-        if(_axis == eAxes.X)
-		{
-            CameraOrbit.XAxisCircled += FlipMarkingsTexts;
-        }
+        CameraOrbit.XAxisCircled += FlipMarkingsTexts;
     }
 
 	private void OnDisable()
 	{
-        if (_axis == eAxes.X)
-        {
-            CameraOrbit.XAxisCircled += FlipMarkingsTexts;
-        }
+        CameraOrbit.XAxisCircled += FlipMarkingsTexts;
     }
 
 	private void MarkAxis()

@@ -40,4 +40,16 @@ public class VectorMouseController : MonoBehaviour
         }
         return worldPosition;
     }
+
+    public void ChangeControlledVector(int newVectorToControl)
+	{
+        if(newVectorToControl == 0)
+		{
+            controlFirstVector = true;
+		}
+		else
+		{
+            controlFirstVector = false;
+		}
+	}
 }
