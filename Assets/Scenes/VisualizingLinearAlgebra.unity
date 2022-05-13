@@ -2369,13 +2369,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1616862934173437372, guid: 22282ff76d1b5dc42b16dd4c0854643a, type: 3}
       propertyPath: m_text
-      value: 'Use the Left mouse button to rotate the camera
+      value: 'Use the Left mouse button to rotate the camera.
 
-        Scroll wheel
-        to zoom in or out
+        The scroll
+        wheel to zoom in or out.
 
-
-        Right mouse button to control vector position'
+        And the right mouse button to control the
+        vectors position.'
       objectReference: {fileID: 0}
     - target: {fileID: 1616862934173437372, guid: 22282ff76d1b5dc42b16dd4c0854643a, type: 3}
       propertyPath: m_margin.w
@@ -3012,7 +3012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1772521133388470877, guid: 89fe2e5ed95bcb84c855fd2b7785afb6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1772521133388470877, guid: 89fe2e5ed95bcb84c855fd2b7785afb6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3048,7 +3048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1772521133388470877, guid: 89fe2e5ed95bcb84c855fd2b7785afb6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -280
+      value: -265
       objectReference: {fileID: 0}
     - target: {fileID: 1772521133388470877, guid: 89fe2e5ed95bcb84c855fd2b7785afb6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
