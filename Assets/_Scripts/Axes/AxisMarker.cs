@@ -74,18 +74,23 @@ public class AxisMarker : MonoBehaviour
             positionText.rectTransform.eulerAngles = new Vector3(0, 180, 0);
 		}
 
+        UpdatePositionText(positionText, startPoint);
+    }
+
+    private void UpdatePositionText(TextMeshPro positionText, Vector3 position)
+	{
         switch (_axis)
         {
             case eAxes.X:
-                positionText.text = startPoint.x.ToString();
+                positionText.text = position.x.ToString();
                 break;
 
             case eAxes.Y:
-                positionText.text = startPoint.y.ToString();
+                positionText.text = position.y.ToString();
                 break;
 
             case eAxes.Z:
-                positionText.text = startPoint.z.ToString();
+                positionText.text = position.z.ToString();
                 break;
         }
     }

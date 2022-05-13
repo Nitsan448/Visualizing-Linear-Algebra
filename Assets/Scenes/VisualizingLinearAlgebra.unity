@@ -2232,6 +2232,7 @@ Transform:
   - {fileID: 1413937042}
   - {fileID: 1384993516}
   - {fileID: 1453320402}
+  - {fileID: 504434490}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4311,6 +4312,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473062950}
   m_CullTransparentMesh: 1
+--- !u!1 &504434489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 504434490}
+  - component: {fileID: 504434491}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &504434490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504434489}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.23461792, y: 6.5057845, z: -1.1132282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 216270515}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504434491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504434489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1643577d8996bdc41a84687453bdc822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridLinePrefab: {fileID: 7909098781375291407, guid: e63fc8d400661194e89308777bb4f497, type: 3}
+  gridSize: 50
 --- !u!1 &518943623
 GameObject:
   m_ObjectHideFlags: 0
@@ -16211,13 +16257,13 @@ MonoBehaviour:
     m_Options:
     - m_Text: Identity
       m_Image: {fileID: 0}
-    - m_Text: X Axis Reflection
+    - m_Text: Reflection on all axes
       m_Image: {fileID: 0}
-    - m_Text: Y Axis Reflection
+    - m_Text: Scaling by 2
       m_Image: {fileID: 0}
-    - m_Text: Z Axis Reflection
+    - m_Text: Translation by +1
       m_Image: {fileID: 0}
-    - m_Text: 180 Rotation
+    - m_Text: Shearing
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

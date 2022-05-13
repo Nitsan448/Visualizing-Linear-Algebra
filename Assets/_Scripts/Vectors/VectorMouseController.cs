@@ -37,7 +37,16 @@ public class VectorMouseController : MonoBehaviour
         if (plane.Raycast(ray, out distance))
         {
             worldPosition = ray.GetPoint(distance);
+            return worldPosition;
         }
+        plane = new Plane(Vector3.up, 0);
+        worldPosition = Vector3.zero;
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out distance))
+        {
+            worldPosition = ray.GetPoint(distance);
+        }
+
         return worldPosition;
     }
 
