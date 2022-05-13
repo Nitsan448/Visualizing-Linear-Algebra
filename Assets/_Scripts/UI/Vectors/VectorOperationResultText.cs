@@ -23,11 +23,11 @@ public class VectorOperationResultText : MonoBehaviour
 	{
 		if(Managers.Vectors.vectorOperation.operation == eVectorOperations.DotProduct)
 		{
-			_resultText.text = "Result = " + StringExtensions.FloatToString((float)Managers.Vectors.result);
+			_resultText.text = $"Result:\n{StringExtensions.FloatToString((float)Managers.Vectors.result)}";
 		}
 		else
 		{
-			_resultText.text = $"Result = " + StringExtensions.Vector3ToString((Vector3)Managers.Vectors.result);
+			_resultText.text = $"Result:\n{StringExtensions.Vector3ToString((Vector3)Managers.Vectors.result)}";
 		}
     }
 }

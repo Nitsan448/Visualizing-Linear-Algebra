@@ -11,15 +11,16 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     public eManagerStatus status { get; private set; }
     public Transform ObjectToTransform;
     public eTransformValue transformValueToManipulate = eTransformValue.Position;
+    public float positionVectorWValue { get; private set; } = 1;
+    public float rotationVectorWValue { get; private set; } = 1;
+    public float scaleVectorWValue { get; private set; } = 1;
 
     [SerializeField] private TMP_InputField _firstRow;
     [SerializeField] private TMP_InputField _secondRow;
     [SerializeField] private TMP_InputField _thirdRow;
     [SerializeField] private TMP_InputField _fourthRow;
 
-    public float positionVectorWValue { get; private set; } = 1;
-    public float rotationVectorWValue { get; private set; } = 1;
-    public float scaleVectorWValue { get; private set; } = 1;
+    [SerializeField] private TMP_Dropdown valueToChangeDropdown;
 
     private Matrix4x4 _matrix;
 
@@ -118,7 +119,9 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void ChangeToCommonMatrix(int index)
 	{
-        _matrix = CommonMatrixTransfomations.matrixByIndex[index];
+        MatrixTransformation matrixTrasnformation = CommonMatrixTransfomations.matrixByIndex[index];
+        _matrix = matrixTrasnformation.Matrix;
+        valueToChangeDropdown.value = (int)matrixTrasnformation.TransformValue;
         UpdateMatrixUI();
 	}
 }

@@ -21,10 +21,7 @@ public class CursorSetter: MonoBehaviour
 
     private void Start()
 	{
-		if (_addSetCursorOnHoverToActiveChildren)
-		{
-            AddCursorOnHoverScriptToActiveChildren();
-		}
+        AddCursorOnHoverScriptToChildren();
 
         _standardCursor = Resources.Load<Texture2D>("Cursors/StandardCursor");
         _inputFieldCursor = Resources.Load<Texture2D>("Cursors/InputFieldCursor");
@@ -32,32 +29,23 @@ public class CursorSetter: MonoBehaviour
         SetCursorToStandard();
     }
 
-    private void AddCursorOnHoverScriptToActiveChildren()
+    private void AddCursorOnHoverScriptToChildren()
 	{
-        _buttonsInChildren = GetComponentsInChildren<Button>();
-        _tmpInputFieldsInChildren = GetComponentsInChildren<TMP_InputField>();
-        _inputFieldsInSceneChildren = GetComponentsInChildren<InputField>();
+        _buttonsInChildren = GetComponentsInChildren<Button>(true);
+        _tmpInputFieldsInChildren = GetComponentsInChildren<TMP_InputField>(true);
+        _inputFieldsInSceneChildren = GetComponentsInChildren<InputField>(true);
 
         foreach(Button button in _buttonsInChildren)
 		{
-            if(button.GetComponent<SetCursorOnHover>() == null)
-			{
-                button.gameObject.AddComponent<SetCursorOnHover>();
-			}
-		}
+            button.gameObject.AddComponent<SetCursorOnHover>();
+        }
         foreach (TMP_InputField tmpInputField in _tmpInputFieldsInChildren)
         {
-            if(tmpInputField.GetComponent<SetCursorOnHover>() == null)
-			{
-                tmpInputField.gameObject.AddComponent<SetCursorOnHover>();
-			}
+            tmpInputField.gameObject.AddComponent<SetCursorOnHover>();
         }
         foreach (InputField inputField in _inputFieldsInSceneChildren)
         {
-			if (inputField.GetComponent<SetCursorOnHover>() == null)
-			{
-                inputField.gameObject.AddComponent<SetCursorOnHover>();
-			}
+            inputField.gameObject.AddComponent<SetCursorOnHover>();
         }
     }
 

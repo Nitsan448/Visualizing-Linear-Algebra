@@ -18,6 +18,11 @@ public class SetCursorOnHover : MonoBehaviour
 		AddOnPointerExitListener();
 	}
 
+	private void OnDisable()
+	{
+		CursorSetter.SetCursorToStandard();
+	}
+
 	private void SetCursorDelegateValue()
 	{
 		Button button = GetComponent<Button>();
