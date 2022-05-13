@@ -28,7 +28,10 @@ public class SetCursorOnHover : MonoBehaviour
 		Button button = GetComponent<Button>();
 		TMP_InputField tmpInputField = GetComponent<TMP_InputField>();
 		InputField inputField = GetComponent<InputField>();
-		if (button != null)
+		TMP_Dropdown dropDown = GetComponent<TMP_Dropdown>();
+		Toggle toggle = GetComponent<Toggle>();
+
+		if (button != null || dropDown != null || toggle != null)
 		{
 			_setCursorDelegate = CursorSetter.SetCursorToButton;
 		}

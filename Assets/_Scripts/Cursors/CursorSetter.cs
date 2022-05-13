@@ -14,10 +14,11 @@ public class CursorSetter: MonoBehaviour
     private static Texture2D _inputFieldCursor;
     private static Texture2D _buttonCursor;
 
-    private Button[] _buttonsInChildren;
-    private TMP_InputField[] _tmpInputFieldsInChildren;
-    private InputField[] _inputFieldsInSceneChildren;
-
+    private Button[] _buttons;
+    private TMP_InputField[] _tmpInputFields;
+    private InputField[] _inputFields;
+    private TMP_Dropdown[] _tmpDropdowns;
+    private Toggle[] _toggles;
 
     private void Start()
 	{
@@ -31,21 +32,46 @@ public class CursorSetter: MonoBehaviour
 
     private void AddCursorOnHoverScriptToChildren()
 	{
-        _buttonsInChildren = GetComponentsInChildren<Button>(true);
-        _tmpInputFieldsInChildren = GetComponentsInChildren<TMP_InputField>(true);
-        _inputFieldsInSceneChildren = GetComponentsInChildren<InputField>(true);
+        _buttons = GetComponentsInChildren<Button>(true);
+        _tmpInputFields = GetComponentsInChildren<TMP_InputField>(true);
+        _inputFields = GetComponentsInChildren<InputField>(true);
+        _tmpDropdowns = GetComponentsInChildren<TMP_Dropdown>(true);
+        _toggles = GetComponentsInChildren<Toggle>(true);
 
-        foreach(Button button in _buttonsInChildren)
+        foreach (Button button in _buttons)
 		{
-            button.gameObject.AddComponent<SetCursorOnHover>();
+            if(button.gameObject.GetComponent<SetCursorOnHover>() == null)
+			{
+                button.gameObject.AddComponent<SetCursorOnHover>();
+			}
         }
-        foreach (TMP_InputField tmpInputField in _tmpInputFieldsInChildren)
+        foreach (TMP_InputField tmpInputField in _tmpInputFields)
         {
-            tmpInputField.gameObject.AddComponent<SetCursorOnHover>();
+            if (tmpInputField.gameObject.GetComponent<SetCursorOnHover>() == null)
+			{
+                tmpInputField.gameObject.AddComponent<SetCursorOnHover>();
+			}
         }
-        foreach (InputField inputField in _inputFieldsInSceneChildren)
+        foreach (InputField inputField in _inputFields)
         {
-            inputField.gameObject.AddComponent<SetCursorOnHover>();
+            if (inputField.gameObject.GetComponent<SetCursorOnHover>() == null)
+			{
+                inputField.gameObject.AddComponent<SetCursorOnHover>();
+			}
+        }
+        foreach (Toggle toggle in _toggles)
+        {
+            if (toggle.gameObject.GetComponent<SetCursorOnHover>() == null)
+            {
+                toggle.gameObject.AddComponent<SetCursorOnHover>();
+            }
+        }
+        foreach (TMP_Dropdown dropDown in _tmpDropdowns)
+        {
+            if (dropDown.gameObject.GetComponent<SetCursorOnHover>() == null)
+            {
+                dropDown.gameObject.AddComponent<SetCursorOnHover>();
+            }
         }
     }
 

@@ -20,12 +20,12 @@ public static class Explanations
     public static string CrossProductExplanation = "The Cross product of two vectors is a vector that is perpendicular to both of them.\n" +
 		"And thus a normal to the plane containing them.";
 
-    public static string ReflectionExplanation = "Reflection of " + redV + " off the plane defined by the " +
+    public static string ReflectionExplanation = "Reflection of the" + redV + " off the plane defined by the " +
         TextExtensions.GetColoredText(TextExtensions.GreenVectorColor, "normal");
 
     public static string ProjectionExplanation = "Can be thought of as the shadow of " + redV + " on " + greenW + ".";
 
-    public static string MatrixTransformationExplanation = "Matrix transformation explanation";
+    public static string MatrixTransformationExplanation = "Matrix transformations allow us to transform values of vectors.";
 
     public static readonly Dictionary<eVectorOperations, string> ExplanationByVectorOperation = new Dictionary<eVectorOperations, string>()
     {
