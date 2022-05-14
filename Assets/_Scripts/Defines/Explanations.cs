@@ -13,19 +13,21 @@ public static class Explanations
         " is defined to be the vector that goes from the tail of " + redV +
 		" to the head of the drawn " + greenW + ".";
 
-    public static string DotProductExplanation = "The Dot product between " + redV + " and " + greenW + 
-        " can be thought of as projecting " + greenW + " onto the line that passes " +
-		"through the origin and the tip of " + redV + ", and multiplying the length of this projection by the length of " + redV + ".";
+    public static string DotProductExplanation = "The Dot product between " + redV + " and " + greenW +
+        " is the cosine of the angle between them, multiplied by their length";
 
-    public static string CrossProductExplanation = "The Cross product of two vectors is a vector that is perpendicular to both of them.\n" +
-		"And thus a normal to the plane containing them.";
+    public static string CrossProductExplanation = "The Cross product of two vectors " + redV + " and " + greenW + 
+        " is a " + TextExtensions.GetColoredText(TextExtensions.BlueVectorColor, "vector") + 
+        " that is perpendicular to both of them.\n And thus a normal to the plane containing them.";
 
-    public static string ReflectionExplanation = "Reflection of the" + redV + " off the plane defined by the " +
+    public static string ReflectionExplanation = "Reflection of " + redV + " off the plane defined by the " +
         TextExtensions.GetColoredText(TextExtensions.GreenVectorColor, "normal");
 
-    public static string ProjectionExplanation = "Can be thought of as the shadow of " + redV + " on " + greenW + ".";
+    public static string ProjectionExplanation = "The Projection from " + redV + " onto " + greenW + 
+        " Can be thought of as the shadow of " + redV + " onto " + greenW + ".";
 
-    public static string MatrixTransformationExplanation = "Matrix transformations allow us to transform values of vectors.";
+    public static string MatrixTransformationExplanation = "Transformations matrices represent linear transformations.\n" +
+		"We can multiply them with vectors to perform many interesting operations on the vector with a single calculation.";
 
     public static readonly Dictionary<eVectorOperations, string> ExplanationByVectorOperation = new Dictionary<eVectorOperations, string>()
     {
