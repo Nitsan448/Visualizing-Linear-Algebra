@@ -19,6 +19,10 @@ public class UIManager : MonoBehaviour, IGameManager
     [HideInInspector] public int numberOfDecimals;
 
     [SerializeField] private TMPro.TMP_Dropdown _numberOfDecimalsDropdown;
+    [SerializeField] private GameObject _screenOverlay;
+    [SerializeField] private GameObject _mainPanel;
+    [SerializeField] private GameObject _optionsPanel;
+    [SerializeField] private GameObject _controlsPanel;
 
 	public void Startup()
 	{
@@ -33,4 +37,26 @@ public class UIManager : MonoBehaviour, IGameManager
         StringExtensions.UpdateNumberOfDecimals();
         NumberOfDecimalsChanged?.Invoke();
 	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+            ChangeOptionsPanelState();
+		}
+	}
+
+    public void ChangeOptionsPanelState()
+	{
+        _screenOverlay.SetActive(!_screenOverlay.activeSelf);
+        _optionsPanel.SetActive(!_optionsPanel.activeSelf);
+        _mainPanel.SetActive(!_mainPanel.activeSelf);
+    }
+
+    public void ChangeControlsPanelState()
+    {
+        _screenOverlay.SetActive(!_screenOverlay.activeSelf);
+        _controlsPanel.SetActive(!_controlsPanel.activeSelf);
+        _mainPanel.SetActive(!_mainPanel.activeSelf);
+    }
 }

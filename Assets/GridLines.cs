@@ -18,7 +18,7 @@ public class GridLines : MonoBehaviour
 	{
         for (int i = -gridSize; i <= gridSize; i++)
         {
-            GameObject gridLine = Instantiate(_gridLinePrefab, transform);
+            GameObject gridLine = Instantiate(_gridLinePrefab, gameObject.transform);
             LineRenderer line = gridLine.GetComponent<LineRenderer>();
             line.SetPosition(0, new Vector3(-gridSize, 0, i));
             line.SetPosition(1, new Vector3(gridSize, 0, i));
@@ -28,7 +28,7 @@ public class GridLines : MonoBehaviour
     {
         for (int i = -gridSize; i <= gridSize; i++)
         {
-            GameObject gridLine = Instantiate(_gridLinePrefab);
+            GameObject gridLine = Instantiate(_gridLinePrefab, gameObject.transform);
             LineRenderer line = gridLine.GetComponent<LineRenderer>();
             line.SetPosition(0, new Vector3(-gridSize, i, 0));
             line.SetPosition(1, new Vector3(gridSize, i, 0));
@@ -38,7 +38,7 @@ public class GridLines : MonoBehaviour
     {
         for (int i = -gridSize; i <= gridSize; i++)
         {
-            GameObject gridLine = Instantiate(_gridLinePrefab);
+            GameObject gridLine = Instantiate(_gridLinePrefab, gameObject.transform);
             LineRenderer line = gridLine.GetComponent<LineRenderer>();
             line.SetPosition(0, new Vector3(i, 0, -gridSize));
             line.SetPosition(1, new Vector3(i, 0, gridSize));
