@@ -15,7 +15,9 @@ public class Managers : MonoBehaviour
     {
         GetManagers();
         SetStartSequenceOrder();
-        StartCoroutine(StartupManagers());
+        StartupManagers();
+        Debug.Log("All managers started up");
+        //StartCoroutine(StartupManagers());
     }
 
     private void GetManagers()
@@ -35,30 +37,11 @@ public class Managers : MonoBehaviour
         startSequence.Add(VisualizationState);
     }
 
-    private IEnumerator StartupManagers()
-    {
+    private void StartupManagers()
+	{
         foreach (IGameManager manager in startSequence)
         {
             manager.Startup();
         }
-        yield return null;
-        int numModules = startSequence.Count;
-        int numReady = 0;
-        while (numReady < numModules)
-        {
-            int lastReady = numReady;
-            numReady = 0;
-            foreach (IGameManager manager in startSequence)
-            {
-                if (manager.status == eManagerStatus.Started)
-                {
-                    numReady++;
-                }
-            }
-            if (numReady > lastReady)
-                Debug.Log($"Progress: {numReady}/{numModules}");
-            yield return null;
-        }
-        Debug.Log("All managers started up");
-    }
+	}
 }

@@ -1,40 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
-public class OperationsVector : ATransformUI
+public class OperationsVector : MonoBehaviour
 {
 	[SerializeField] private int vectorIndex;
+	protected TMP_InputField _vectorInput;
+
+	private void Awake()
+	{
+		_vectorInput = GetComponent<TMP_InputField>();
+		_vectorInput.onEndEdit.AddListener(delegate { SetVector(); });
+	}
 
 	private void OnEnable()
 	{
-		_transformInput = GetComponent<TMP_InputField>();
-		VectorsManager.VectorsUpdated += UpdateTransformUI;
+		VectorsManager.VectorsUpdated += UpdateVectorUI;
+		UpdateVectorUI();
 	}
 
 	private void OnDisable()
 	{
-		VectorsManager.VectorsUpdated -= UpdateTransformUI;
-	}
-
-	private void Start()
-	{
-		GetComponent<TMP_InputField>().onEndEdit.AddListener(delegate { SetVector(); });
+		VectorsManager.VectorsUpdated -= UpdateVectorUI;
 	}
 
 	private void SetVector()
 	{
-		Managers.Vectors.SetVectorByString(vectorIndex, _transformInput.text);
+		Managers.Vectors.SetVectorByString(vectorIndex, _vectorInput.text);
 	}
 
-	public override void UpdateTransformUI()
+	private void UpdateVectorUI()
 	{
 		Vector3 vector = Managers.Vectors.Vectors[vectorIndex];
-		string newVectorText = StringExtensions.Vector3ToString(vector);
-		_transformInput.text = StringExtensions.UpdateNumberOfDecimalsShownVector4(_transformInput.text);
-		_transformInput.pointSize = Managers.UI.FontSizeByNumberOfDecimals[Managers.UI.numberOfDecimals];
+		_vectorInput.text = StringExtensions.Vector3ToString(vector);
+		_vectorInput.pointSize = Managers.UI.FontSizeByNumberOfDecimals[Managers.UI.numberOfDecimals];
 	}
 }

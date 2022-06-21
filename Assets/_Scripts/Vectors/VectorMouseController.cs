@@ -19,11 +19,11 @@ public class VectorMouseController : MonoBehaviour
 
         if (controlFirstVector)
         {
-            Managers.Vectors.Vectors[1] = worldPosition;
+            Managers.Vectors.Vectors[0] = worldPosition;
         }
         else
         {
-            Managers.Vectors.Vectors[2] = worldPosition;
+            Managers.Vectors.Vectors[1] = worldPosition;
         }
         Managers.Vectors.UpdateResult();
     }

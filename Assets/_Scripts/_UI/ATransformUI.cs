@@ -8,17 +8,16 @@ public abstract class ATransformUI: MonoBehaviour
 {
 	protected TMP_InputField _transformInput;
 
-	private void OnEnable()
+	protected virtual void OnEnable()
 	{
 		_transformInput = GetComponent<TMP_InputField>();
-		UpdateTransformUI();
-		UIManager.NumberOfDecimalsChanged += UpdateTransformUI;
+		Managers.UI.NumberOfDecimalsChanged += UpdateTransformUI;
 	}
 
 	// Update is called once per frame
-	void OnDisable()
+	protected virtual void OnDisable()
 	{
-		UIManager.NumberOfDecimalsChanged -= UpdateTransformUI;
+		Managers.UI.NumberOfDecimalsChanged -= UpdateTransformUI;
 	}
 
 	public abstract void UpdateTransformUI();

@@ -24,6 +24,6 @@ public class TransfromValueToManipulateDropDown : MonoBehaviour
     {
         eTransformValue value = (eTransformValue)dropDown.value;
         Managers.Transformations.transformValueToManipulate = value;
-        _objectTransfromInput.UpdateInputFieldText();
+        _objectTransfromInput.UpdateVectorUI();
     }
 }

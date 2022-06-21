@@ -49,20 +49,20 @@ public class VectorsDrawer : MonoBehaviour
     private void UpdateResultLine()
 	{
         eVectorOperations operation = Managers.Vectors.vectorOperation.operation;
-        Vector3 result = (Vector3)Managers.Vectors.result;
+        Vector3 result;
         if (operation == eVectorOperations.DotProduct)
 		{
             UpdateLine(_resultLine, Vector3.zero, Vector3.zero);
         }
-        else if(operation == eVectorOperations.Addition)
+        else if(operation == eVectorOperations.Addition && false)
 		{
+            result = (Vector3)Managers.Vectors.result;
             _resultLine.SetPosition(0, Managers.Vectors.Vectors[0]);
             _resultLine.SetPosition(1, result);
-            Debug.Log(Managers.Vectors.Vectors[0]);
-            Debug.Log(result - Managers.Vectors.Vectors[1]);
         }
 		else
 		{
+            result = (Vector3)Managers.Vectors.result;
             UpdateLine(_resultLine, Vector3.zero, result);
         }
 	}

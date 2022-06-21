@@ -31,7 +31,6 @@ public static class StringExtensions
         stringBuilder.Append(Vector4ToString(matrix.GetRow(2)));
         stringBuilder.Append('\n');
         stringBuilder.Append(Vector4ToString(matrix.GetRow(3)));
-        stringBuilder.Append('\n');
 
         return stringBuilder.ToString();
     }
@@ -103,7 +102,6 @@ public static class StringExtensions
 
     public static List<float> VectorStringToFloatList(string vector)
     {
-        //if(Regex.IsMatch(vector, "[A-Z][a-z]!@#%&"))
         RemoveParenthesis(ref vector);
 
         string[] vectorValues = vector.Split(',');
@@ -132,22 +130,22 @@ public static class StringExtensions
         }
     }
 
-    public static string UpdateNumberOfDecimalsShownVector3(string vectorString)
-	{
-        Vector3 vector = StringToVector3(vectorString);
-        return Vector3ToString(vector);
-    }
+ //   public static string UpdateNumberOfDecimalsShownVector3(string vectorString)
+	//{
+ //       Vector3 vector = StringToVector3(vectorString);
+ //       return Vector3ToString(vector);
+ //   }
     
-    public static string UpdateNumberOfDecimalsShownVector4(string vectorString)
-    {
-        Vector4 vector = StringToVector4(vectorString);
-        return Vector4ToString(vector);
-    }
-    public static string UpdateNumberOfDecimalsShownMatrix(string matrixString)
-    {
-        Matrix4x4 matrix = stringToMatrix(matrixString);
-        return matrixToString(matrix);
-    }
+ //   public static string UpdateNumberOfDecimalsShownVector4(string vectorString)
+ //   {
+ //       Vector4 vector = StringToVector4(vectorString);
+ //       return Vector4ToString(vector);
+ //   }
+ //   public static string UpdateNumberOfDecimalsShownMatrix(string matrixString)
+ //   {
+ //       Matrix4x4 matrix = stringToMatrix(matrixString);
+ //       return matrixToString(matrix);
+ //   }
 
     public static void UpdateNumberOfDecimals()
 	{

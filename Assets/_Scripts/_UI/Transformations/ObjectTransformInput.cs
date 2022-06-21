@@ -6,28 +6,28 @@ using TMPro;
 
 public class ObjectTransformInput : MonoBehaviour
 {
-    private TMP_InputField _objectTransformInput;
-    // Start is called before the first frame update
-    void Start()
+    private TMP_InputField _vectorInput;
+
+    void Awake()
     {
-        _objectTransformInput = GetComponent<TMP_InputField>();
-        _objectTransformInput.onValueChanged.AddListener(delegate { ChangeObjectValue(); });
-        UpdateInputFieldText();
+        _vectorInput = GetComponent<TMP_InputField>();
+        _vectorInput.onEndEdit.AddListener(delegate { ChangeObjectValue(); });
     }
 
 	private void OnEnable()
 	{
-        TransformationsManager.TransformationApplied += UpdateInputFieldText;
+        Managers.Transformations.TransformationApplied += UpdateVectorUI;
+        UpdateVectorUI();
 	}
 
-	private void OnDisable()
+    private void OnDisable()
 	{
-        TransformationsManager.TransformationApplied -= UpdateInputFieldText;
+        Managers.Transformations.TransformationApplied -= UpdateVectorUI;
     }
 
 	private void ChangeObjectValue()
 	{
-        Vector3 newValue = StringExtensions.StringToVector3(_objectTransformInput.text);
+        Vector3 newValue = StringExtensions.StringToVector3(_vectorInput.text);
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
@@ -44,7 +44,7 @@ public class ObjectTransformInput : MonoBehaviour
         }
     }
 
-    public void UpdateInputFieldText()
+    public void UpdateVectorUI()
     {
         string newText = string.Empty;
         switch (Managers.Transformations.transformValueToManipulate)
@@ -64,6 +64,6 @@ public class ObjectTransformInput : MonoBehaviour
                 newText = StringExtensions.Vector4ToString(scale);
                 break;
         }
-        _objectTransformInput.text = newText;
+        _vectorInput.text = newText;
     }
 }

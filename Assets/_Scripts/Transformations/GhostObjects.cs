@@ -23,12 +23,12 @@ public class GhostObjects : MonoBehaviour
 
 	private void OnEnable()
 	{
-        TransformationsManager.TransformationApplied += UpdateGhosts;
+        Managers.Transformations.TransformationApplied += UpdateGhosts;
 	}
 
 	private void OnDisable()
 	{
-        TransformationsManager.TransformationApplied -= UpdateGhosts;
+        Managers.Transformations.TransformationApplied -= UpdateGhosts;
     }
 
 	private void UpdateGhosts()
