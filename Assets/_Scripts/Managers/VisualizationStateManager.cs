@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class VisualizationStateManager: MonoBehaviour, IGameManager
 {
-	public eManagerStatus status { get; private set; }
 	public static eVisualizationState VisualizationState { get; private set; }
+	public eManagerStatus status { get; private set; }
 
-	[SerializeField] private GameObject _vectorOperationsUI;
-	[SerializeField] private GameObject _vectorOperationsObjects;
+	public event Action<eVisualizationState> VisualizationStateChanged;
 
-	[SerializeField] private GameObject _transformationsUI;
-	[SerializeField] private GameObject _transformationsObjects;
+	[SerializeField] private List<GameObject> _vectorOperationsObjects;
+
+	[SerializeField] private List<GameObject> _transformationsObjects;
 
 	[SerializeField] private eVisualizationState _startingVisualizationState;
-
-	[SerializeField] private TextMeshProUGUI _explanationText;
-
 
 	public void Startup()
 	{
@@ -34,27 +32,28 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 		switch (VisualizationState)
 		{
 			case eVisualizationState.VectorOperations:
-				UpdateVectorOperationsEnabledState(true);
-				UpdateTransformationsEnabledState(false);
-				_explanationText.text = Explanations.ExplanationByVectorOperation[Managers.Vectors.vectorOperation.operation];
+				UpdateObjectsEnabledState(_vectorOperationsObjects, true);
+				UpdateObjectsEnabledState(_transformationsObjects, false);
 				break;
 			case eVisualizationState.MatrixTransformations:
-				UpdateTransformationsEnabledState(true);
-				UpdateVectorOperationsEnabledState(false);
-				_explanationText.text = Explanations.MatrixTransformationExplanation;
+				UpdateObjectsEnabledState(_transformationsObjects, true);
+				UpdateObjectsEnabledState(_vectorOperationsObjects, false);
 				break;
+		}
+
+		OnVisualizationStateChanged();
+	}
+
+	private void UpdateObjectsEnabledState(List<GameObject> objectsToUpdate, bool enabled)
+	{
+		foreach (GameObject gameObject in objectsToUpdate)
+		{
+			gameObject.SetActive(enabled);
 		}
 	}
 
-	private void UpdateVectorOperationsEnabledState(bool enabled)
+	private void OnVisualizationStateChanged()
 	{
-		_vectorOperationsUI.SetActive(enabled);
-		_vectorOperationsObjects.SetActive(enabled);
-	}
-
-	private void UpdateTransformationsEnabledState(bool enabled)
-	{
-		_transformationsUI.SetActive(enabled);
-		_transformationsObjects.SetActive(enabled);
+		VisualizationStateChanged?.Invoke(VisualizationState);
 	}
 }

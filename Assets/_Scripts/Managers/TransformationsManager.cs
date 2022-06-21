@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Text;
 
 public class TransformationsManager : MonoBehaviour, IGameManager
 {
@@ -15,10 +16,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     public float rotationVectorWValue { get; private set; } = 1;
     public float scaleVectorWValue { get; private set; } = 1;
 
-    [SerializeField] private TMP_InputField _firstRow;
-    [SerializeField] private TMP_InputField _secondRow;
-    [SerializeField] private TMP_InputField _thirdRow;
-    [SerializeField] private TMP_InputField _fourthRow;
+    [SerializeField] private TMP_InputField _matrixInput;
 
     [SerializeField] private TMP_Dropdown valueToChangeDropdown;
 
@@ -41,10 +39,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     private void UpdateMatrixFromUI()
     {
-        SetMatrixRow(0, _firstRow.text);
-        SetMatrixRow(1, _secondRow.text);
-        SetMatrixRow(2, _thirdRow.text);
-        SetMatrixRow(3, _fourthRow.text);
+        _matrix = StringExtensions.stringToMatrix(_matrixInput.text);
     }
 
     private void TransformObject()
@@ -89,11 +84,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         ObjectToTransform.localScale = newScale;
     }
 
-    private void SetMatrixRow(int row, string vector)
-	{
-        Vector4 result = StringExtensions.StringToVector4(vector);
-        _matrix.SetRow(row, result);
-    }
+    //TODO: add apply transformation on vertices option
 
     public void InvertMatrix()
 	{
@@ -111,10 +102,8 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     private void UpdateMatrixUI()
 	{
-        _firstRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(0));
-        _secondRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(1));
-        _thirdRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(2));
-        _fourthRow.text = StringExtensions.Vector4ToString(_matrix.GetRow(3));
+        _matrixInput.text = StringExtensions.UpdateNumberOfDecimalsShownMatrix(_matrixInput.text);
+        _matrixInput.pointSize = Managers.UI.FontSizeByNumberOfDecimals[Managers.UI.numberOfDecimals];
     }
 
     public void ChangeToCommonMatrix(int index)

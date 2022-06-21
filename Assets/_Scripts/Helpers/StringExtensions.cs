@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text.RegularExpressions;
+using System;
 using System.Text;
 
 public static class StringExtensions
@@ -11,6 +11,60 @@ public static class StringExtensions
     public static string FloatToString(float number)
 	{
         return number.ToString(NumberOfDecimals);
+    }
+
+    public static Matrix4x4 stringToMatrix(string transform)
+    {
+        string[] vectors = transform.Split('\n');
+        Matrix4x4 result = new Matrix4x4(StringToVector4(vectors[0]), StringToVector4(vectors[1]),
+                               StringToVector4(vectors[2]), StringToVector4(vectors[3]));
+        return result;
+    }
+
+    public static string matrixToString(Matrix4x4 matrix)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append(Vector4ToString(matrix.GetRow(0)));
+        stringBuilder.Append('\n');
+        stringBuilder.Append(Vector4ToString(matrix.GetRow(1)));
+        stringBuilder.Append('\n');
+        stringBuilder.Append(Vector4ToString(matrix.GetRow(2)));
+        stringBuilder.Append('\n');
+        stringBuilder.Append(Vector4ToString(matrix.GetRow(3)));
+        stringBuilder.Append('\n');
+
+        return stringBuilder.ToString();
+    }
+
+    public static bool IsMatrixStringFormatValid(string transform)
+    {
+        string[] vectors = transform.Split('\n');
+        foreach (string vector in vectors)
+        {
+            if (!IsVectorStringFormatValid(vector))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool IsVectorStringFormatValid(string vector)
+    {
+        RemoveParenthesis(ref vector);
+        string[] vectorValues = vector.Split(',');
+
+        for (int i = 0; i < vectorValues.Length; i++)
+        {
+            float nextValue;
+            bool floatInputWasValid = float.TryParse(vectorValues[i], out nextValue);
+            if (!floatInputWasValid)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static Vector3 StringToVector3(string vector)
@@ -39,12 +93,8 @@ public static class StringExtensions
 
     public static string Vector4ToString(Vector4 vector)
     {
-        StringBuilder stringBuilder = new StringBuilder("(");
-        stringBuilder.Append(vector.x.ToString(NumberOfDecimals));
-        stringBuilder.Append(", ");
-        stringBuilder.Append(vector.y.ToString(NumberOfDecimals));
-        stringBuilder.Append(", ");
-        stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
+        StringBuilder stringBuilder = new StringBuilder(Vector3ToString(vector));
+        stringBuilder.Remove(stringBuilder.Length - 1, 1);
         stringBuilder.Append(", ");
         stringBuilder.Append(vector.w.ToString(NumberOfDecimals));
         stringBuilder.Append(")");
@@ -87,10 +137,16 @@ public static class StringExtensions
         Vector3 vector = StringToVector3(vectorString);
         return Vector3ToString(vector);
     }
+    
     public static string UpdateNumberOfDecimalsShownVector4(string vectorString)
     {
         Vector4 vector = StringToVector4(vectorString);
         return Vector4ToString(vector);
+    }
+    public static string UpdateNumberOfDecimalsShownMatrix(string matrixString)
+    {
+        Matrix4x4 matrix = stringToMatrix(matrixString);
+        return matrixToString(matrix);
     }
 
     public static void UpdateNumberOfDecimals()

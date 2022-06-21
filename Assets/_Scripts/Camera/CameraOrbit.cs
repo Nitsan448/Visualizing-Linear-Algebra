@@ -39,7 +39,6 @@ public class CameraOrbit : MonoBehaviour
 			//Allow moving around
 			//transform.parent.position = new Vector3(-1, 0, 0);
         }
-
 		UpdateRotation();
 
 		UpdateZoom();

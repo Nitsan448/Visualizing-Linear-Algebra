@@ -4,18 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
-public class SetCursorOnHover : MonoBehaviour
+public class SetCursorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	private EventTrigger _eventTrigger;
 	private delegate void SetCursor();
 	private SetCursor _setCursorDelegate;
+	private Selectable _selectable;
+
+	private List<Type> _buttonCursorTypes = new List<Type>
+	{
+		typeof(Toggle),
+		typeof(TMP_Dropdown),
+		typeof(Dropdown),
+		typeof(Button),
+		typeof(Slider),
+	};
+
+	private List<Type> _inputCursorTypes = new List<Type>
+	{
+		typeof(TMP_InputField),
+		typeof(InputField),
+	};
+
 	private void Start()
 	{
+		_selectable = GetComponent<Selectable>();
 		SetCursorDelegateValue();
-		_eventTrigger = gameObject.AddComponent<EventTrigger>();
-		AddOnPointerEnterListener();
-		AddOnPointerExitListener();
 	}
 
 	private void OnDisable()
@@ -25,17 +41,11 @@ public class SetCursorOnHover : MonoBehaviour
 
 	private void SetCursorDelegateValue()
 	{
-		Button button = GetComponent<Button>();
-		TMP_InputField tmpInputField = GetComponent<TMP_InputField>();
-		InputField inputField = GetComponent<InputField>();
-		TMP_Dropdown dropDown = GetComponent<TMP_Dropdown>();
-		Toggle toggle = GetComponent<Toggle>();
-
-		if (button != null || dropDown != null || toggle != null)
+		if (_buttonCursorTypes.Contains(_selectable.GetType()))
 		{
 			_setCursorDelegate = CursorSetter.SetCursorToButton;
 		}
-		else if (inputField != null || tmpInputField != null)
+		else if (_inputCursorTypes.Contains(_selectable.GetType()))
 		{
 			_setCursorDelegate = CursorSetter.SetCursorToInputField;
 		}
@@ -45,19 +55,16 @@ public class SetCursorOnHover : MonoBehaviour
 		}
 	}
 
-	private void AddOnPointerEnterListener()
+	public void OnPointerEnter(PointerEventData eventData)
 	{
-		EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
-		pointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-		pointerEnterEntry.callback.AddListener(delegate { _setCursorDelegate(); });
-		_eventTrigger.triggers.Add(pointerEnterEntry);
+		if (_selectable.interactable)
+		{
+			_setCursorDelegate();
+		}
 	}
 
-	private void AddOnPointerExitListener()
+	public void OnPointerExit(PointerEventData eventData)
 	{
-		EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
-		pointerExitEntry.eventID = EventTriggerType.PointerExit;
-		pointerExitEntry.callback.AddListener(delegate { CursorSetter.SetCursorToStandard(); });
-		_eventTrigger.triggers.Add(pointerExitEntry);
+		CursorSetter.SetCursorToStandard();
 	}
 }
