@@ -11,12 +11,12 @@ public class VectorOperationResultText : MonoBehaviour
 	private void OnEnable()
 	{
 		_resultText = GetComponent<TextMeshProUGUI>();
-		VectorsManager.VectorsUpdated += UpdateResultText;
+		Managers.Vectors.VectorsUpdated += UpdateResultText;
 	}
 
 	private void OnDisable()
 	{
-		VectorsManager.VectorsUpdated -= UpdateResultText;
+		Managers.Vectors.VectorsUpdated -= UpdateResultText;
 	}
 
 	private void UpdateResultText()

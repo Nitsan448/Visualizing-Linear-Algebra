@@ -5,7 +5,7 @@ using System;
 
 public class VectorsManager : MonoBehaviour, IGameManager
 {
-    public static Action VectorsUpdated;
+    public Action VectorsUpdated;
 
     public List<Vector3> Vectors = new List<Vector3>();
     public eManagerStatus status { get; private set; }

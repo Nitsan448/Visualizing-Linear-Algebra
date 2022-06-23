@@ -13,30 +13,18 @@ public class VectorsDrawer : MonoBehaviour
 
 	private void OnEnable()
 	{
-        VectorsManager.VectorsUpdated += UpdateAllLines;
+        Managers.Vectors.VectorsUpdated += UpdateAllLines;
     }
-
-	private void Start()
-	{
-        //Remove and fix source problem (script execution order)
-        _firstLine.startWidth = _startWidth;
-        _firstLine.endWidth = _endWidth;
-        _secondLine.startWidth = _startWidth;
-        _secondLine.endWidth = _endWidth;
-        _resultLine.startWidth = _startWidth;
-        _resultLine.endWidth = _endWidth;
-        UpdateAllLines();
-	}
 
 	private void OnDisable()
 	{
-        VectorsManager.VectorsUpdated -= UpdateAllLines;
+        Managers.Vectors.VectorsUpdated -= UpdateAllLines;
     }
 
-	private void UpdateAllLines()
+    private void UpdateAllLines()
     {
         UpdateLine(_firstLine, Vector3.zero, Managers.Vectors.Vectors[0]);
-        UpdateLine(_secondLine, Vector3.zero, Managers.Vectors.Vectors[1]);
+        UpdateSecondLine();
         UpdateResultLine();
     }
 
@@ -46,6 +34,19 @@ public class VectorsDrawer : MonoBehaviour
         line.SetPosition(1, endPosition);
     }
 
+    private void UpdateSecondLine()
+	{
+        eVectorOperations operation = Managers.Vectors.vectorOperation.operation;
+        if (operation == eVectorOperations.Addition)
+        {
+            UpdateLine(_secondLine, Managers.Vectors.Vectors[0], (Vector3)Managers.Vectors.result);
+        }
+        else
+        {
+            UpdateLine(_secondLine, Vector3.zero, Managers.Vectors.Vectors[1]);
+        }
+    }
+
     private void UpdateResultLine()
 	{
         eVectorOperations operation = Managers.Vectors.vectorOperation.operation;
@@ -53,12 +54,6 @@ public class VectorsDrawer : MonoBehaviour
         if (operation == eVectorOperations.DotProduct)
 		{
             UpdateLine(_resultLine, Vector3.zero, Vector3.zero);
-        }
-        else if(operation == eVectorOperations.Addition && false)
-		{
-            result = (Vector3)Managers.Vectors.result;
-            _resultLine.SetPosition(0, Managers.Vectors.Vectors[0]);
-            _resultLine.SetPosition(1, result);
         }
 		else
 		{

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VectorMouseController : MonoBehaviour
 {
-    [SerializeField] private bool controlFirstVector;
+    [SerializeField] private bool _controlRedVector;
 
 	private void Update()
 	{
@@ -13,11 +13,12 @@ public class VectorMouseController : MonoBehaviour
             ControlVectorsWithMouse();
         }
     }
+
 	private void ControlVectorsWithMouse()
     {
         Vector3 worldPosition = GetMousePositionInWorld();
-
-        if (controlFirstVector)
+        
+        if (_controlRedVector)
         {
             Managers.Vectors.Vectors[0] = worldPosition;
         }
@@ -30,35 +31,27 @@ public class VectorMouseController : MonoBehaviour
 
     private Vector3 GetMousePositionInWorld()
 	{
-        Plane plane = new Plane(Vector3.back, 0);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(ray.direction, 0);
         float distance;
         Vector3 worldPosition = Vector3.zero;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (plane.Raycast(ray, out distance))
-        {
+        if(plane.Raycast(ray, out distance))
+		{
             worldPosition = ray.GetPoint(distance);
-            return worldPosition;
-        }
-        plane = new Plane(Vector3.up, 0);
-        worldPosition = Vector3.zero;
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (plane.Raycast(ray, out distance))
-        {
-            worldPosition = ray.GetPoint(distance);
-        }
+		}
 
-        return worldPosition;
+		return worldPosition;
     }
 
     public void ChangeControlledVector(int newVectorToControl)
 	{
         if(newVectorToControl == 0)
 		{
-            controlFirstVector = true;
+            _controlRedVector = true;
 		}
 		else
 		{
-            controlFirstVector = false;
+            _controlRedVector = false;
 		}
 	}
 }

@@ -18,13 +18,13 @@ public class OperationsVector : MonoBehaviour
 
 	private void OnEnable()
 	{
-		VectorsManager.VectorsUpdated += UpdateVectorUI;
+		Managers.Vectors.VectorsUpdated += UpdateVectorUI;
 		UpdateVectorUI();
 	}
 
 	private void OnDisable()
 	{
-		VectorsManager.VectorsUpdated -= UpdateVectorUI;
+		Managers.Vectors.VectorsUpdated -= UpdateVectorUI;
 	}
 
 	private void SetVector()
