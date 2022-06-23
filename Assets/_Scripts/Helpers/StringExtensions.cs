@@ -15,9 +15,21 @@ public static class StringExtensions
 
     public static Matrix4x4 stringToMatrix(string transform)
     {
+
+        //TODO: Refactor!!!
         string[] vectors = transform.Split('\n');
-        Matrix4x4 result = new Matrix4x4(StringToVector4(vectors[0]), StringToVector4(vectors[1]),
-                               StringToVector4(vectors[2]), StringToVector4(vectors[3]));
+
+        Vector4 firstRow = StringToVector4(vectors[0]);
+        Vector4 secondRow = StringToVector4(vectors[1]);
+        Vector4 thirdRow = StringToVector4(vectors[2]);
+        Vector4 fourthRow = StringToVector4(vectors[3]);
+
+        Vector4 firstColumn = new Vector4(firstRow.x, secondRow.x, thirdRow.x, fourthRow.x);
+        Vector4 secondColumn = new Vector4(firstRow.y, secondRow.y, thirdRow.y, fourthRow.y);
+        Vector4 thirdColumn = new Vector4(firstRow.z, secondRow.z, thirdRow.z, fourthRow.z);
+        Vector4 fourthColumn = new Vector4(firstRow.w, secondRow.w, thirdRow.w, fourthRow.w);
+        Matrix4x4 result = new Matrix4x4(firstColumn, secondColumn, thirdColumn, fourthColumn);
+
         return result;
     }
 
@@ -129,23 +141,6 @@ public static class StringExtensions
             vector = vector.Substring(0, vector.Length - 2);
         }
     }
-
- //   public static string UpdateNumberOfDecimalsShownVector3(string vectorString)
-	//{
- //       Vector3 vector = StringToVector3(vectorString);
- //       return Vector3ToString(vector);
- //   }
-    
- //   public static string UpdateNumberOfDecimalsShownVector4(string vectorString)
- //   {
- //       Vector4 vector = StringToVector4(vectorString);
- //       return Vector4ToString(vector);
- //   }
- //   public static string UpdateNumberOfDecimalsShownMatrix(string matrixString)
- //   {
- //       Matrix4x4 matrix = stringToMatrix(matrixString);
- //       return matrixToString(matrix);
- //   }
 
     public static void UpdateNumberOfDecimals()
 	{

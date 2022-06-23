@@ -49,6 +49,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
             case eTransformValue.Scale:
                 ApplyTransformationOnScale();
                 break;
+
+            case eTransformValue.Vertices:
+                ApplyTransformationOnVertices();
+                break;
         }
     }
 
@@ -76,7 +80,19 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         ObjectToTransform.localScale = newScale;
     }
 
-    //TODO: add apply transformation on vertices option
+    private void ApplyTransformationOnVertices()
+    {
+        Mesh mesh = ObjectToTransform.gameObject.GetComponent<MeshFilter>().mesh;
+        Debug.Log(mesh.vertices);
+        Vector3[] vertices = new Vector3[mesh.vertices.Length];
+        for (int i = 0; i < mesh.vertices.Length; i++)
+        {
+            Vector4 vertex = TransformExtensions.ConvertToVector4(mesh.vertices[i], 1);
+            vertices[i] = Matrix * vertex;
+        }
+        mesh.vertices = vertices;
+        Debug.Log(mesh.vertices);
+    }
 
     public void InvertMatrix()
 	{

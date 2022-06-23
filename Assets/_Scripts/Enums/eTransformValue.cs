@@ -6,5 +6,6 @@ public enum eTransformValue
 {
 	Position,
 	Rotation,
-	Scale
+	Scale,
+	Vertices,
 }
