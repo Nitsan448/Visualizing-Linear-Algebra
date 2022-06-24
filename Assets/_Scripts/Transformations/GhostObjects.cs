@@ -11,6 +11,7 @@ public class GhostObjects : MonoBehaviour
     private float _alphaChangeBetweenGhosts;
     private List<GameObject> _ghosts = new List<GameObject>();
     private Transform _previousObjectTransform;
+    private Mesh _previousObjectMesh;
 
 
     private void Start()
@@ -18,6 +19,7 @@ public class GhostObjects : MonoBehaviour
         GameObject transformHolder = new GameObject();
         _previousObjectTransform = transformHolder.transform;
         TransformExtensions.CopyTransform(_previousObjectTransform, Managers.Transformations.ObjectToTransform);
+        _previousObjectMesh = Managers.Transformations.ObjectToTransform.GetComponent<MeshFilter>().mesh;
         _alphaChangeBetweenGhosts = (_ghostsStartingAlpha / _maxGhosts);
     }
 
@@ -44,12 +46,14 @@ public class GhostObjects : MonoBehaviour
 
         SetGhostsTransperancy();
 
+        _previousObjectMesh = Managers.Transformations.ObjectToTransform.GetComponent<MeshFilter>().mesh;
         TransformExtensions.CopyTransform(_previousObjectTransform, Managers.Transformations.ObjectToTransform);
     }
 
     private void CreateGhost()
     {
         GameObject newGhost = Instantiate(_ghostPrefab, transform);
+        MeshExtensions.CopyVertices(newGhost.GetComponent<MeshFilter>().mesh, _previousObjectMesh);
         TransformExtensions.CopyTransform(newGhost.transform, _previousObjectTransform);
         _ghosts.Add(newGhost);
     }
@@ -61,10 +65,12 @@ public class GhostObjects : MonoBehaviour
             GameObject ghost = _ghosts[i];
             if (i != _ghosts.Count - 1)
             {
+                MeshExtensions.CopyVertices(ghost.GetComponent<MeshFilter>().mesh, _ghosts[i + 1].GetComponent<MeshFilter>().mesh);
                 TransformExtensions.CopyTransform(ghost.transform, _ghosts[i + 1].transform);
             }
             else
             {
+                MeshExtensions.CopyVertices(ghost.GetComponent<MeshFilter>().mesh, _previousObjectMesh);
                 TransformExtensions.CopyTransform(ghost.transform, _previousObjectTransform);
             }
         }

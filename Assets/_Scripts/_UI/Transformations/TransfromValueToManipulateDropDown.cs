@@ -18,12 +18,23 @@ public class TransfromValueToManipulateDropDown : MonoBehaviour
         dropDown.value = 0;
     }
 
-
+    private void ChangeObjectTransformInputState(eTransformValue value)
+	{
+        if(value == eTransformValue.Vertices)
+		{
+            _objectTransfromInput.gameObject.SetActive(false);
+		}
+		else
+		{
+            _objectTransfromInput.gameObject.SetActive(true);
+            _objectTransfromInput.UpdateVectorUI();
+        }
+	}
 
     public void SetTranformationValueToManipulate()
     {
         eTransformValue value = (eTransformValue)dropDown.value;
         Managers.Transformations.transformValueToManipulate = value;
-        _objectTransfromInput.UpdateVectorUI();
+        ChangeObjectTransformInputState(value);
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public static class TransformExtensions
 {
-    public static void CopyTransform(Transform currentTransform, Transform newTransform)
+    public static void CopyTransform(Transform transformToCopyTo, Transform transformToCopyFrom)
 	{
-		currentTransform.position = newTransform.position;
-		currentTransform.rotation = newTransform.rotation;
-		currentTransform.localScale = newTransform.localScale;
+		transformToCopyTo.position = transformToCopyFrom.position;
+		transformToCopyTo.rotation = transformToCopyFrom.rotation;
+		transformToCopyTo.localScale = transformToCopyFrom.localScale;
 	}
 
 	public static Vector4 ConvertToVector4(Vector3 vectorToConvert, float wValue = 1)

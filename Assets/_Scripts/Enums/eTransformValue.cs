@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum eTransformValue
 {
+	Vertices,
 	Position,
 	Rotation,
 	Scale,
-	Vertices,
 }

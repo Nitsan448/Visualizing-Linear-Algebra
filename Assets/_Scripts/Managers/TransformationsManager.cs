@@ -19,7 +19,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     [SerializeField] private TMP_Dropdown valueToChangeDropdown;
 
-    public Matrix4x4 Matrix { get; set; } = CommonMatrixTransfomations.Identity.Matrix;
+    public Matrix4x4 Matrix { get; set; } = CommonMatrixTransfomations.Identity;
 
     public void Startup()
     {
@@ -38,6 +38,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 	{
         switch (transformValueToManipulate)
         {
+            case eTransformValue.Vertices:
+                ApplyTransformationOnVertices();
+                break;
+
             case eTransformValue.Position:
                 ApplyTransformationOnPosition();
                 break;
@@ -49,11 +53,21 @@ public class TransformationsManager : MonoBehaviour, IGameManager
             case eTransformValue.Scale:
                 ApplyTransformationOnScale();
                 break;
-
-            case eTransformValue.Vertices:
-                ApplyTransformationOnVertices();
-                break;
         }
+    }
+
+    private void ApplyTransformationOnVertices()
+    {
+        Mesh mesh = ObjectToTransform.gameObject.GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = new Vector3[mesh.vertices.Length];
+        for (int i = 0; i < mesh.vertices.Length; i++)
+        {
+            Vector4 vertexPosition = ObjectToTransform.TransformPoint(mesh.vertices[i]);
+            vertexPosition = TransformExtensions.ConvertToVector4(vertexPosition, 1);
+            vertices[i] = Matrix * vertexPosition;
+            vertices[i] = ObjectToTransform.InverseTransformPoint(vertices[i]);
+        }
+        mesh.vertices = vertices;
     }
 
     private void ApplyTransformationOnPosition()
@@ -80,20 +94,6 @@ public class TransformationsManager : MonoBehaviour, IGameManager
         ObjectToTransform.localScale = newScale;
     }
 
-    private void ApplyTransformationOnVertices()
-    {
-        Mesh mesh = ObjectToTransform.gameObject.GetComponent<MeshFilter>().mesh;
-        Debug.Log(mesh.vertices);
-        Vector3[] vertices = new Vector3[mesh.vertices.Length];
-        for (int i = 0; i < mesh.vertices.Length; i++)
-        {
-            Vector4 vertex = TransformExtensions.ConvertToVector4(mesh.vertices[i], 1);
-            vertices[i] = Matrix * vertex;
-        }
-        mesh.vertices = vertices;
-        Debug.Log(mesh.vertices);
-    }
-
     public void InvertMatrix()
 	{
         Matrix = Matrix.inverse;
@@ -108,9 +108,13 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void ChangeToCommonMatrix(int index)
 	{
-        MatrixTransformation matrixTrasnformation = CommonMatrixTransfomations.matrixByIndex[index];
-        Matrix = matrixTrasnformation.Matrix;
-        valueToChangeDropdown.value = (int)matrixTrasnformation.TransformValue;
+        Matrix = CommonMatrixTransfomations.matrixByIndex[index];
         MatrixUpdated?.Invoke();
 	}
+
+    public void UpdateMatrixFromString(string newMatrix)
+	{
+        Managers.Transformations.Matrix = StringExtensions.stringToMatrix(newMatrix);
+        MatrixUpdated?.Invoke();
+    }
 }

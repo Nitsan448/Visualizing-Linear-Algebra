@@ -21,7 +21,7 @@ public class MatrixUI : MonoBehaviour
 
 	private void UpdateMatrix()
 	{
-		Managers.Transformations.Matrix = StringExtensions.stringToMatrix(_matrixInput.text);
+		Managers.Transformations.UpdateMatrixFromString(_matrixInput.text);
 	}
 
 	private void OnEnable()
