@@ -9,11 +9,10 @@ public class AxisMarker : MonoBehaviour
     [SerializeField] private int markingIncrement = 1;
     [SerializeField] private Vector3 _positionTextOffset = new Vector3(0, 0.05f, 0);
     [SerializeField] private eAxes _axis;
-    [SerializeField] private Transform _cameraParent;
 
     private LineRenderer _line;
     private bool _markingTextFlipped= false;
-    // Start is called before the first frame update
+
     void Start()
     {
         _line = GetComponent<LineRenderer>();
@@ -69,10 +68,6 @@ public class AxisMarker : MonoBehaviour
         axisMarkLine.SetPosition(1, endPoint);
         positionText.transform.position = new Vector3(startPoint.x + _positionTextOffset.x, 
                                     endPoint.y + _positionTextOffset.y, startPoint.z + _positionTextOffset.z);
-        if(_cameraParent.rotation.y < -0.5f)
-		{
-            positionText.rectTransform.eulerAngles = new Vector3(0, 180, 0);
-		}
 
         UpdatePositionText(positionText, startPoint);
     }

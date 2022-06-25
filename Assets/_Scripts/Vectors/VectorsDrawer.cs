@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class VectorsDrawer : MonoBehaviour
 {
-    [SerializeField] private float _startWidth = 0.03f;
-    [SerializeField] private float _endWidth = 0.015f;
-    
     [SerializeField] private LineRenderer _firstLine;
     [SerializeField] private LineRenderer _secondLine;
     [SerializeField] private LineRenderer _resultLine;

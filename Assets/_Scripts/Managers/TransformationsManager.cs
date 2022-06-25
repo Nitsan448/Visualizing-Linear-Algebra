@@ -12,12 +12,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     public Action MatrixUpdated;
     public eManagerStatus status { get; private set; }
     public Transform ObjectToTransform;
-    public eTransformValue transformValueToManipulate = eTransformValue.Position;
+    public eTransformValue transformValueToManipulate;
     public float positionVectorWValue { get; private set; } = 1;
     public float rotationVectorWValue { get; private set; } = 1;
     public float scaleVectorWValue { get; private set; } = 1;
-
-    [SerializeField] private TMP_Dropdown valueToChangeDropdown;
 
     public Matrix4x4 Matrix { get; set; } = CommonMatrixTransfomations.Identity;
 

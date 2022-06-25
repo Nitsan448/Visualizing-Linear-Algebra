@@ -5,7 +5,6 @@ using System;
 
 public class UIManager : MonoBehaviour, IGameManager
 {
-    public Action NumberOfDecimalsChanged;
     public readonly Dictionary<int, int> FontSizeByNumberOfDecimals = new Dictionary<int, int>
     {
         {0, 30},
@@ -35,7 +34,6 @@ public class UIManager : MonoBehaviour, IGameManager
 	{
         numberOfDecimals = newNumberOfDecimals;
         StringExtensions.UpdateNumberOfDecimals();
-        //NumberOfDecimalsChanged?.Invoke();
 	}
 
 	private void Update()
