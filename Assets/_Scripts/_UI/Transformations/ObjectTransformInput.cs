@@ -11,7 +11,7 @@ public class ObjectTransformInput : MonoBehaviour
     void Awake()
     {
         _vectorInput = GetComponent<TMP_InputField>();
-        _vectorInput.onEndEdit.AddListener(delegate { ChangeObjectValue(); });
+        _vectorInput.onValueChanged.AddListener(delegate { AttemptToChangeObjectValue(); });
     }
 
 	private void OnEnable()
@@ -25,7 +25,15 @@ public class ObjectTransformInput : MonoBehaviour
         Managers.Transformations.TransformationApplied -= UpdateVectorUI;
     }
 
-	private void ChangeObjectValue()
+	private void AttemptToChangeObjectValue()
+	{
+		if (StringExtensions.IsVectorStringFormatValid(_vectorInput.text))
+		{
+            ChangeObjectValue();
+		}
+    }
+
+    private void ChangeObjectValue()
 	{
         Vector3 newValue = StringExtensions.StringToVector3(_vectorInput.text);
         switch (Managers.Transformations.transformValueToManipulate)

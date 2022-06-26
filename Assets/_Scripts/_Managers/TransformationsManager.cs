@@ -112,7 +112,10 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void UpdateMatrixFromString(string newMatrix)
 	{
-        Managers.Transformations.Matrix = StringExtensions.stringToMatrix(newMatrix);
+		if (StringExtensions.IsMatrixStringFormatValid(newMatrix))
+		{
+            Managers.Transformations.Matrix = StringExtensions.StringToMatrix(newMatrix);
+		}
         MatrixUpdated?.Invoke();
     }
 }

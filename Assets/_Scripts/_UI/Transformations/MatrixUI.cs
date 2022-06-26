@@ -16,7 +16,7 @@ public class MatrixUI : MonoBehaviour
 	{
 		_rectTransform = GetComponent<RectTransform>();
 		_matrixInput = GetComponent<TMP_InputField>();
-		_matrixInput.onEndEdit.AddListener(delegate { UpdateMatrix(); });
+		_matrixInput.onValueChanged.AddListener(delegate { UpdateMatrix(); });
 	}
 
 	private void UpdateMatrix()
@@ -38,7 +38,7 @@ public class MatrixUI : MonoBehaviour
 	private void UpdateMatrixUI()
     {
         _matrixInput.pointSize = Managers.UI.FontSizeByNumberOfDecimals[Managers.UI.numberOfDecimals];
-        _matrixInput.text = StringExtensions.matrixToString(Managers.Transformations.Matrix);
+        _matrixInput.text = StringExtensions.MatrixToString(Managers.Transformations.Matrix);
 
 		int heightChange = Managers.UI.numberOfDecimals * _decimalsSizeChange;
 		_rectTransform.sizeDelta = new Vector2(_inputFieldSize.x, _inputFieldSize.y - heightChange);

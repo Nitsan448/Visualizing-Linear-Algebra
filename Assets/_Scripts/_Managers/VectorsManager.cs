@@ -25,7 +25,10 @@ public class VectorsManager : MonoBehaviour, IGameManager
 
     public void SetVectorByString(int vector, string newVector)
     {
-        Vectors[vector] = StringExtensions.StringToVector3(newVector);
+		if (StringExtensions.IsVectorStringFormatValid(newVector))
+		{
+            Vectors[vector] = StringExtensions.StringToVector3(newVector);
+        }
         UpdateResult();
     }
 

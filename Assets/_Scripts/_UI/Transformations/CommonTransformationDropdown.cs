@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class NumberOfDecimalsDropdown : MonoBehaviour
+public class CommonTransformationDropdown : MonoBehaviour
 {
     void Start()
     {
         TMP_Dropdown dropDown = GetComponent<TMP_Dropdown>();
-        dropDown.onValueChanged.AddListener(delegate { Managers.UI.ChangeNumberOfDecimals(dropDown.value); });
+        dropDown.onValueChanged.AddListener(delegate { Managers.Transformations.ChangeToCommonMatrix(dropDown.value); });
     }
 }

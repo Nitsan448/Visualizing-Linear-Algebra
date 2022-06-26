@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class UIManager : MonoBehaviour, IGameManager
 {
@@ -13,12 +14,12 @@ public class UIManager : MonoBehaviour, IGameManager
         {3, 20},
         {4, 16}
 	};
+
+    public int numberOfDecimals;
 	public eManagerStatus status { get; private set; }
 
-    [HideInInspector] public int numberOfDecimals;
-
-    [SerializeField] private TMPro.TMP_Dropdown _numberOfDecimalsDropdown;
     [SerializeField] private GameObject _screenOverlay;
+    [Header("UI panels")]
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _controlsPanel;
@@ -26,7 +27,6 @@ public class UIManager : MonoBehaviour, IGameManager
 	public void Startup()
 	{
         status = eManagerStatus.Initializing;
-        numberOfDecimals = _numberOfDecimalsDropdown.value;
         status = eManagerStatus.Started;
 	}
 

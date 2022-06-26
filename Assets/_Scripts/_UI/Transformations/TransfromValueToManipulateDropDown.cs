@@ -15,8 +15,7 @@ public class TransfromValueToManipulateDropDown : MonoBehaviour
     {
         dropDown = GetComponent<TMP_Dropdown>();
         dropDown.onValueChanged.AddListener(delegate { SetTranformationValueToManipulate(); });
-        dropDown.value = 0;
-        SetTranformationValueToManipulate();
+        dropDown.value = (int)Managers.Transformations.transformValueToManipulate;
     }
 
     private void ChangeObjectTransformInputState(eTransformValue value)

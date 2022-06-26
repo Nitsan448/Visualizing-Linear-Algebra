@@ -13,27 +13,20 @@ public static class StringExtensions
         return number.ToString(NumberOfDecimals);
     }
 
-    public static Matrix4x4 stringToMatrix(string transform)
+    public static Matrix4x4 StringToMatrix(string transform)
     {
-
-        //TODO: Refactor!!!
+        Matrix4x4 result = new Matrix4x4();
         string[] vectors = transform.Split('\n');
 
-        Vector4 firstRow = StringToVector4(vectors[0]);
-        Vector4 secondRow = StringToVector4(vectors[1]);
-        Vector4 thirdRow = StringToVector4(vectors[2]);
-        Vector4 fourthRow = StringToVector4(vectors[3]);
-
-        Vector4 firstColumn = new Vector4(firstRow.x, secondRow.x, thirdRow.x, fourthRow.x);
-        Vector4 secondColumn = new Vector4(firstRow.y, secondRow.y, thirdRow.y, fourthRow.y);
-        Vector4 thirdColumn = new Vector4(firstRow.z, secondRow.z, thirdRow.z, fourthRow.z);
-        Vector4 fourthColumn = new Vector4(firstRow.w, secondRow.w, thirdRow.w, fourthRow.w);
-        Matrix4x4 result = new Matrix4x4(firstColumn, secondColumn, thirdColumn, fourthColumn);
+        result.SetRow(0, StringToVector4(vectors[0]));
+        result.SetRow(1, StringToVector4(vectors[1]));
+        result.SetRow(2, StringToVector4(vectors[2]));
+        result.SetRow(3, StringToVector4(vectors[3]));
 
         return result;
     }
 
-    public static string matrixToString(Matrix4x4 matrix)
+    public static string MatrixToString(Matrix4x4 matrix)
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append(Vector4ToString(matrix.GetRow(0)));

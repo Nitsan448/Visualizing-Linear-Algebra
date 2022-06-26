@@ -13,7 +13,7 @@ public class OperationsVector : MonoBehaviour
 	private void Awake()
 	{
 		_vectorInput = GetComponent<TMP_InputField>();
-		_vectorInput.onEndEdit.AddListener(delegate { SetVector(); });
+		_vectorInput.onValueChanged.AddListener(delegate { SetVector(); });
 	}
 
 	private void OnEnable()
