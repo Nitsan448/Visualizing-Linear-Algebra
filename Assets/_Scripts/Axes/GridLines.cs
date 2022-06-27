@@ -10,7 +10,6 @@ public class GridLines : MonoBehaviour
     void Start()
     {
         CreateGridOnXAxis();
-        //CreateGridOnYAxis();
         CreateGridOnZAxis();
     }
 
@@ -24,16 +23,7 @@ public class GridLines : MonoBehaviour
             line.SetPosition(1, new Vector3(gridSize, 0, i));
         }
     }
-    private void CreateGridOnYAxis()
-    {
-        for (int i = -gridSize; i <= gridSize; i++)
-        {
-            GameObject gridLine = Instantiate(_gridLinePrefab, gameObject.transform);
-            LineRenderer line = gridLine.GetComponent<LineRenderer>();
-            line.SetPosition(0, new Vector3(-gridSize, i, 0));
-            line.SetPosition(1, new Vector3(gridSize, i, 0));
-        }
-    }
+
     private void CreateGridOnZAxis()
     {
         for (int i = -gridSize; i <= gridSize; i++)

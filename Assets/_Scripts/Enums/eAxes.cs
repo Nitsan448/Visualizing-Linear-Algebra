@@ -6,5 +6,5 @@ public enum eAxes
 {
     X,
     Y,
-    Z
+    Z,
 }

@@ -8,6 +8,6 @@ public enum eVectorOperations
     CrossProduct,
     DotProduct,
     Projection,
-    Reflection
+    Reflection,
 }
 

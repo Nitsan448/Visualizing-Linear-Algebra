@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class VectorsOperator
 {
-    public eVectorOperations operation;
+    public eVectorOperations Operation;
 
     public VectorsOperator(eVectorOperations vectorOperation)
     {
-        operation = vectorOperation;
+        Operation = vectorOperation;
     }
 
     public object DoOperation(Vector3 firstVector, Vector3 secondVector)
     {
-        switch (operation)
+        switch (Operation)
         {
             case eVectorOperations.Addition:
                 return firstVector + secondVector;

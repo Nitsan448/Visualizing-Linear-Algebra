@@ -15,10 +15,7 @@ public class ChooseOperationDropDown : MonoBehaviour
         dropDown = GetComponent<TMP_Dropdown>();
         dropDown.onValueChanged.AddListener(delegate { SetVectorOperation(dropDown.value); });
         dropDown.value = (int)Managers.Vectors.StartingOperation;
-        SetVectorOperation(dropDown.value);
     }
-
-
 
     public void SetVectorOperation(int operationIndex)
     {

@@ -7,29 +7,29 @@ using System;
 
 public class VisualizationStateManager: MonoBehaviour, IGameManager
 {
-	public static eVisualizationState VisualizationState { get; private set; }
+	public eVisualizationState State { get; private set; }
 	public eManagerStatus Status { get; private set; }
 
-	public event Action<eVisualizationState> VisualizationStateChanged;
+	public event Action StateChanged;
 
 	[SerializeField] private List<GameObject> _vectorOperationsObjects;
 
 	[SerializeField] private List<GameObject> _transformationsObjects;
 
-	[SerializeField] private eVisualizationState _startingVisualizationState;
+	[SerializeField] private eVisualizationState _startingState;
 
 	public void Startup()
 	{
 		Status = eManagerStatus.Initializing;
-		SetVisualizationState(_startingVisualizationState);
+		SetState(_startingState);
 		Status = eManagerStatus.Started;
 	}
 
-	public void SetVisualizationState(eVisualizationState newState)
+	public void SetState(eVisualizationState newState)
 	{
-		VisualizationState = newState;
+		State = newState;
 
-		switch (VisualizationState)
+		switch (State)
 		{
 			case eVisualizationState.VectorOperations:
 				UpdateObjectsEnabledState(_vectorOperationsObjects, true);
@@ -41,7 +41,7 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 				break;
 		}
 
-		OnVisualizationStateChanged();
+		StateChanged?.Invoke();
 	}
 
 	private void UpdateObjectsEnabledState(List<GameObject> objectsToUpdate, bool enabled)
@@ -50,10 +50,5 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 		{
 			gameObject.SetActive(enabled);
 		}
-	}
-
-	private void OnVisualizationStateChanged()
-	{
-		VisualizationStateChanged?.Invoke(VisualizationState);
 	}
 }

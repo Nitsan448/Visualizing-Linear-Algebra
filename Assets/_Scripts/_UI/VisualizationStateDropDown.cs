@@ -14,7 +14,7 @@ public class VisualizationStateDropDown : MonoBehaviour
     {
         dropDown = GetComponent<TMP_Dropdown>();
         dropDown.onValueChanged.AddListener(delegate { SetVisualizationState(dropDown.value); });
-        dropDown.value = (int)VisualizationStateManager.VisualizationState;
+        dropDown.value = (int)Managers.VisualizationState.State;
     }
 
 
@@ -22,6 +22,6 @@ public class VisualizationStateDropDown : MonoBehaviour
     public void SetVisualizationState(int operationIndex)
     {
         eVisualizationState newState = (eVisualizationState)operationIndex;
-        Managers.VisualizationState.SetVisualizationState(newState);
+        Managers.VisualizationState.SetState(newState);
     }
 }

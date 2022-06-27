@@ -5,8 +5,8 @@ using System;
 
 public class VectorsManager : MonoBehaviour, IGameManager
 {
-    public Action OperationChanged;
-    public Action VectorsUpdated;
+    public event Action OperationChanged;
+    public event Action VectorsUpdated;
 
     public List<Vector3> Vectors = new List<Vector3>();
     public eManagerStatus Status { get; private set; }
@@ -19,17 +19,17 @@ public class VectorsManager : MonoBehaviour, IGameManager
     {
         Status = eManagerStatus.Initializing;
 
-        VectorOperation = new VectorsOperator(eVectorOperations.DotProduct);
+        VectorOperation = new VectorsOperator(StartingOperation);
         UpdateResult();
 
         Status = eManagerStatus.Started;
     }
 
-    public void SetVectorByString(int vector, string newVector)
+    public void SetVectorByString(int vectorIndex, string newVector)
     {
 		if (StringExtensions.IsVectorStringFormatValid(newVector))
 		{
-            Vectors[vector] = StringExtensions.StringToVector3(newVector);
+            Vectors[vectorIndex] = StringExtensions.StringToVector3(newVector);
         }
         UpdateResult();
     }
@@ -48,7 +48,7 @@ public class VectorsManager : MonoBehaviour, IGameManager
 
     public void UpdateOperation(eVectorOperations operation)
 	{
-        VectorOperation.operation = operation;
+        VectorOperation.Operation = operation;
         UpdateResult();
         OperationChanged?.Invoke();
     }

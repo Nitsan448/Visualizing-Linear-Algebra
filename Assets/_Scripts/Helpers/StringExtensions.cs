@@ -8,6 +8,11 @@ public static class StringExtensions
 {
     public static string NumberOfDecimals = "F" + Managers.UI.numberOfDecimals.ToString();
 
+    public static void UpdateNumberOfDecimals()
+    {
+        NumberOfDecimals = "F" + Managers.UI.numberOfDecimals.ToString();
+    }
+
     public static string FloatToString(float number)
 	{
         return number.ToString(NumberOfDecimals);
@@ -24,6 +29,42 @@ public static class StringExtensions
         result.SetRow(3, StringToVector4(vectors[3]));
 
         return result;
+    }
+
+    public static Vector4 StringToVector4(string vector)
+    {
+        List<float> floatList = VectorStringToFloatList(vector);
+        return new Vector4(floatList[0], floatList[1], floatList[2], floatList[3]);
+    }
+
+    public static List<float> VectorStringToFloatList(string vector)
+    {
+        RemoveParenthesis(ref vector);
+
+        string[] vectorValues = vector.Split(',');
+
+        List<float> result = new List<float>();
+        for (int i = 0; i < vectorValues.Length; i++)
+        {
+            result.Add(float.Parse(vectorValues[i]));
+        }
+        return result;
+    }
+
+    private static void RemoveParenthesis(ref string vector)
+    {
+        if (vector.StartsWith("(") && vector.EndsWith(")"))
+        {
+            vector = vector.Substring(1, vector.Length - 2);
+        }
+        else if (vector.StartsWith("("))
+        {
+            vector = vector.Substring(1, vector.Length - 1);
+        }
+        else if (vector.EndsWith(")"))
+        {
+            vector = vector.Substring(0, vector.Length - 2);
+        }
     }
 
     public static string MatrixToString(Matrix4x4 matrix)
@@ -77,24 +118,6 @@ public static class StringExtensions
         return new Vector3(floatList[0], floatList[1], floatList[2]);
     }
 
-    public static string Vector3ToString(Vector3 vector)
-    {
-        StringBuilder stringBuilder = new StringBuilder("(");
-        stringBuilder.Append(vector.x.ToString(NumberOfDecimals));
-        stringBuilder.Append(", ");
-        stringBuilder.Append(vector.y.ToString(NumberOfDecimals));
-        stringBuilder.Append(", ");
-        stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
-        stringBuilder.Append(")");
-        return stringBuilder.ToString();
-    }
-
-    public static Vector4 StringToVector4(string vector)
-    {
-        List<float> floatList = VectorStringToFloatList(vector);
-        return new Vector4(floatList[0], floatList[1], floatList[2], floatList[3]);
-    }
-
     public static string Vector4ToString(Vector4 vector)
     {
         StringBuilder stringBuilder = new StringBuilder(Vector3ToString(vector));
@@ -105,38 +128,15 @@ public static class StringExtensions
         return stringBuilder.ToString();
     }
 
-    public static List<float> VectorStringToFloatList(string vector)
+    public static string Vector3ToString(Vector3 vector)
     {
-        RemoveParenthesis(ref vector);
-
-        string[] vectorValues = vector.Split(',');
-
-        List<float> result = new List<float>();
-        for (int i = 0; i < vectorValues.Length; i++)
-        {
-            result.Add(float.Parse(vectorValues[i]));
-        }
-        return result;
-    }
-
-    private static void RemoveParenthesis(ref string vector)
-	{
-        if (vector.StartsWith("(") && vector.EndsWith(")"))
-        {
-            vector = vector.Substring(1, vector.Length - 2);
-        }
-        else if (vector.StartsWith("("))
-        {
-            vector = vector.Substring(1, vector.Length - 1);
-        }
-        else if (vector.EndsWith(")"))
-        {
-            vector = vector.Substring(0, vector.Length - 2);
-        }
-    }
-
-    public static void UpdateNumberOfDecimals()
-	{
-        NumberOfDecimals = "F" + Managers.UI.numberOfDecimals.ToString();
+        StringBuilder stringBuilder = new StringBuilder("(");
+        stringBuilder.Append(vector.x.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.y.ToString(NumberOfDecimals));
+        stringBuilder.Append(", ");
+        stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
+        stringBuilder.Append(")");
+        return stringBuilder.ToString();
     }
 }

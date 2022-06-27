@@ -11,11 +11,15 @@ public class AxisMarker : MonoBehaviour
     [SerializeField] private eAxes _axis;
 
     private LineRenderer _line;
-    private bool _markingTextFlipped= false;
+    private bool _markingTextFlipped = false;
 
-    void Start()
-    {
+	private void Awake()
+	{
         _line = GetComponent<LineRenderer>();
+    }
+
+	void Start()
+    {
         MarkAxis();
     }
 
@@ -92,14 +96,13 @@ public class AxisMarker : MonoBehaviour
 
     private void FlipMarkingsTexts()
 	{
-        RectTransform[] markings = GetComponentsInChildren<RectTransform>();
-
         int newYRotation = 180;
-		if (_markingTextFlipped)
-		{
+        if (_markingTextFlipped)
+        {
             newYRotation = 0;
-		}
+        }
 
+        RectTransform[] markings = GetComponentsInChildren<RectTransform>();
         foreach (RectTransform marking in markings)
 		{
             marking.eulerAngles = new Vector3(0, newYRotation, 0);

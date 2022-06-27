@@ -14,22 +14,22 @@ public class ExplanationText : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Managers.VisualizationState.VisualizationStateChanged += UpdateExplanationTextToNewState;
-		Managers.Vectors.OperationChanged += UpdateExplanationTextToNewOperation;
+		Managers.VisualizationState.StateChanged += UpdateTextToNewState;
+		Managers.Vectors.OperationChanged += UpdateTextToNewOperation;
 	}
 
 	private void OnDisable()
 	{
-		Managers.VisualizationState.VisualizationStateChanged -= UpdateExplanationTextToNewState;
-		Managers.Vectors.OperationChanged -= UpdateExplanationTextToNewOperation;
+		Managers.VisualizationState.StateChanged -= UpdateTextToNewState;
+		Managers.Vectors.OperationChanged -= UpdateTextToNewOperation;
 	}
 
-	private void UpdateExplanationTextToNewState(eVisualizationState newState)
+	private void UpdateTextToNewState()
 	{
-		switch (newState)
+		switch (Managers.VisualizationState.State)
 		{
 			case eVisualizationState.VectorOperations:
-				_explanationText.text = Explanations.ExplanationByVectorOperation[Managers.Vectors.VectorOperation.operation];
+				UpdateTextToNewOperation();
 				break;
 			case eVisualizationState.MatrixTransformations:
 				_explanationText.text = Explanations.MatrixTransformationExplanation;
@@ -37,9 +37,9 @@ public class ExplanationText : MonoBehaviour
 		}
 	}
 
-	private void UpdateExplanationTextToNewOperation()
+	private void UpdateTextToNewOperation()
 	{
-		eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
+		eVectorOperations operation = Managers.Vectors.VectorOperation.Operation;
 		_explanationText.text = Explanations.ExplanationByVectorOperation[operation];
 	}
 }

@@ -33,7 +33,7 @@ public class VectorsDrawer : MonoBehaviour
 
     private void UpdateSecondLine()
 	{
-        eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
+        eVectorOperations operation = Managers.Vectors.VectorOperation.Operation;
         if (operation == eVectorOperations.Addition)
         {
             UpdateLine(_secondLine, Managers.Vectors.Vectors[0], (Vector3)Managers.Vectors.Result);
@@ -46,7 +46,7 @@ public class VectorsDrawer : MonoBehaviour
 
     private void UpdateResultLine()
 	{
-        eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
+        eVectorOperations operation = Managers.Vectors.VectorOperation.Operation;
         Vector3 result;
         if (operation == eVectorOperations.DotProduct)
 		{

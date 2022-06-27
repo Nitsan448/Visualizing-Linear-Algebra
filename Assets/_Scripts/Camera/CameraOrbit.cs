@@ -26,29 +26,27 @@ public class CameraOrbit : MonoBehaviour
 
 	void LateUpdate()
     {
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButton(0))
 		{
-			_allowRotation = true;
+			UpdateRotation();
 		}
-		if (Input.GetMouseButtonUp(0))
+
+		if (Input.GetAxis("Mouse ScrollWheel") != 0f)
 		{
-			_allowRotation = false;
+			UpdateZoom();
 		}
-        if (Input.GetMouseButtonDown(2))
+
+		if (Input.GetMouseButton(2))
         {
 			//Allow moving around
-			//transform.parent.position = new Vector3(-1, 0, 0);
         }
-		UpdateRotation();
-
-		UpdateZoom();
 
 		UpdateCameraTransform();
     }
 
 	private void UpdateRotation()
 	{
-		if (_allowRotation && (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
+		if ((Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
 		{
 			_localRotation.x += Input.GetAxis("Mouse X") * _mouseSensitivity;
 			_localRotation.y -= Input.GetAxis("Mouse Y") * _mouseSensitivity;
@@ -57,16 +55,12 @@ public class CameraOrbit : MonoBehaviour
 
 	private void UpdateZoom()
 	{
-		if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-		{
-			float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * _scrollSensitvity;
+		float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * _scrollSensitvity;
 
-			//Scroll faster the farther we are from the object
-			ScrollAmount *= (_cameraDistance * 0.3f);
-
-			_cameraDistance += ScrollAmount * -1f;
-			_cameraDistance = Mathf.Clamp(_cameraDistance, _distanceRange.x, _distanceRange.y);
-		}
+		//Scroll faster the farther we are from the object
+		ScrollAmount *= (_cameraDistance * 0.3f);
+		_cameraDistance += ScrollAmount * -1f;
+		_cameraDistance = Mathf.Clamp(_cameraDistance, _distanceRange.x, _distanceRange.y);
 	}
 
 	private void UpdateCameraTransform()

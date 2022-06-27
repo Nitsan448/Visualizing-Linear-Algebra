@@ -21,7 +21,7 @@ public class VectorOperationResultText : MonoBehaviour
 
 	private void UpdateResultText()
 	{
-		if(Managers.Vectors.VectorOperation.operation == eVectorOperations.DotProduct)
+		if(Managers.Vectors.VectorOperation.Operation == eVectorOperations.DotProduct)
 		{
 			_resultText.text = $"Result:\n{StringExtensions.FloatToString((float)Managers.Vectors.Result)}";
 		}

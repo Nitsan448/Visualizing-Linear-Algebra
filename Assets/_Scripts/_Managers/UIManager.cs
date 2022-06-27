@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour, IGameManager
 	public eManagerStatus Status { get; private set; }
 
     [SerializeField] private GameObject _screenOverlay;
+
     [Header("UI panels")]
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _optionsPanel;
@@ -30,18 +31,18 @@ public class UIManager : MonoBehaviour, IGameManager
         Status = eManagerStatus.Started;
 	}
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ChangeOptionsPanelState();
+        }
+    }
+
     public void ChangeNumberOfDecimals(int newNumberOfDecimals)
 	{
         numberOfDecimals = newNumberOfDecimals;
         StringExtensions.UpdateNumberOfDecimals();
-	}
-
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-            ChangeOptionsPanelState();
-		}
 	}
 
     public void ChangeOptionsPanelState()

@@ -8,8 +8,8 @@ using System.Text;
 
 public class TransformationsManager : MonoBehaviour, IGameManager
 {
-    public Action TransformationApplied;
-    public Action MatrixUpdated;
+    public event Action TransformationApplied;
+    public event Action MatrixUpdated;
     public eManagerStatus Status { get; private set; }
     public Transform ObjectToTransform;
     public eTransformValue transformValueToManipulate;
