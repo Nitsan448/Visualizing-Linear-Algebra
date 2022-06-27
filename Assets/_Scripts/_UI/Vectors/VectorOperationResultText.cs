@@ -21,13 +21,13 @@ public class VectorOperationResultText : MonoBehaviour
 
 	private void UpdateResultText()
 	{
-		if(Managers.Vectors.vectorOperation.operation == eVectorOperations.DotProduct)
+		if(Managers.Vectors.VectorOperation.operation == eVectorOperations.DotProduct)
 		{
-			_resultText.text = $"Result:\n{StringExtensions.FloatToString((float)Managers.Vectors.result)}";
+			_resultText.text = $"Result:\n{StringExtensions.FloatToString((float)Managers.Vectors.Result)}";
 		}
 		else
 		{
-			_resultText.text = $"Result:\n{StringExtensions.Vector3ToString((Vector3)Managers.Vectors.result)}";
+			_resultText.text = $"Result:\n{StringExtensions.Vector3ToString((Vector3)Managers.Vectors.Result)}";
 		}
     }
 }

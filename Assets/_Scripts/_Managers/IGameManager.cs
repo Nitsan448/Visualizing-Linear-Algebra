@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IGameManager
 {
-    eManagerStatus status { get; }
+    eManagerStatus Status { get; }
     void Startup();
 }

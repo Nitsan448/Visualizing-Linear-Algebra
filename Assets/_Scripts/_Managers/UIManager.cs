@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour, IGameManager
 	};
 
     public int numberOfDecimals;
-	public eManagerStatus status { get; private set; }
+	public eManagerStatus Status { get; private set; }
 
     [SerializeField] private GameObject _screenOverlay;
     [Header("UI panels")]
@@ -26,8 +26,8 @@ public class UIManager : MonoBehaviour, IGameManager
 
 	public void Startup()
 	{
-        status = eManagerStatus.Initializing;
-        status = eManagerStatus.Started;
+        Status = eManagerStatus.Initializing;
+        Status = eManagerStatus.Started;
 	}
 
     public void ChangeNumberOfDecimals(int newNumberOfDecimals)

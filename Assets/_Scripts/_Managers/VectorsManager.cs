@@ -5,22 +5,24 @@ using System;
 
 public class VectorsManager : MonoBehaviour, IGameManager
 {
+    public Action OperationChanged;
     public Action VectorsUpdated;
 
     public List<Vector3> Vectors = new List<Vector3>();
-    public eManagerStatus status { get; private set; }
-    public object result { get; private set; }
-    public VectorsOperator vectorOperation { get; private set; }
+    public eManagerStatus Status { get; private set; }
+    public object Result { get; private set; }
+    public VectorsOperator VectorOperation { get; private set; }
 
+    public eVectorOperations StartingOperation;
 
     public void Startup()
     {
-        status = eManagerStatus.Initializing;
+        Status = eManagerStatus.Initializing;
 
-        vectorOperation = new VectorsOperator(eVectorOperations.DotProduct);
+        VectorOperation = new VectorsOperator(eVectorOperations.DotProduct);
         UpdateResult();
 
-        status = eManagerStatus.Started;
+        Status = eManagerStatus.Started;
     }
 
     public void SetVectorByString(int vector, string newVector)
@@ -34,7 +36,7 @@ public class VectorsManager : MonoBehaviour, IGameManager
 
     public void UpdateResult()
     {
-        result = vectorOperation.DoOperation(Vectors[0], Vectors[1]);
+        Result = VectorOperation.DoOperation(Vectors[0], Vectors[1]);
         VectorsUpdated?.Invoke();
     }
 
@@ -42,5 +44,12 @@ public class VectorsManager : MonoBehaviour, IGameManager
 	{
         Vectors[vectorIndex] = Vectors[vectorIndex].normalized;
         UpdateResult();
+    }
+
+    public void UpdateOperation(eVectorOperations operation)
+	{
+        VectorOperation.operation = operation;
+        UpdateResult();
+        OperationChanged?.Invoke();
     }
 }

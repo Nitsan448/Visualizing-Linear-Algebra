@@ -33,10 +33,10 @@ public class VectorsDrawer : MonoBehaviour
 
     private void UpdateSecondLine()
 	{
-        eVectorOperations operation = Managers.Vectors.vectorOperation.operation;
+        eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
         if (operation == eVectorOperations.Addition)
         {
-            UpdateLine(_secondLine, Managers.Vectors.Vectors[0], (Vector3)Managers.Vectors.result);
+            UpdateLine(_secondLine, Managers.Vectors.Vectors[0], (Vector3)Managers.Vectors.Result);
         }
         else
         {
@@ -46,7 +46,7 @@ public class VectorsDrawer : MonoBehaviour
 
     private void UpdateResultLine()
 	{
-        eVectorOperations operation = Managers.Vectors.vectorOperation.operation;
+        eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
         Vector3 result;
         if (operation == eVectorOperations.DotProduct)
 		{
@@ -54,7 +54,7 @@ public class VectorsDrawer : MonoBehaviour
         }
 		else
 		{
-            result = (Vector3)Managers.Vectors.result;
+            result = (Vector3)Managers.Vectors.Result;
             UpdateLine(_resultLine, Vector3.zero, result);
         }
 	}

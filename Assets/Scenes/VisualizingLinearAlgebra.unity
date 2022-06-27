@@ -6024,7 +6024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b64daf6618af44398fef18cd9b4717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explanationText: {fileID: 1873989871}
 --- !u!1001 &1643037407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6640,6 +6639,7 @@ MonoBehaviour:
   Vectors:
   - {x: 1, y: 2, z: 4}
   - {x: -1, y: 2, z: 4}
+  StartingOperation: 3
 --- !u!1 &1772349024
 GameObject:
   m_ObjectHideFlags: 0

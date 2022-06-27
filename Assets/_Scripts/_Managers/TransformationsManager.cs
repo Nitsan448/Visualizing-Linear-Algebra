@@ -10,7 +10,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 {
     public Action TransformationApplied;
     public Action MatrixUpdated;
-    public eManagerStatus status { get; private set; }
+    public eManagerStatus Status { get; private set; }
     public Transform ObjectToTransform;
     public eTransformValue transformValueToManipulate;
     public float positionVectorWValue { get; private set; } = 1;
@@ -21,8 +21,8 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 
     public void Startup()
     {
-        status = eManagerStatus.Initializing;
-        status = eManagerStatus.Started;
+        Status = eManagerStatus.Initializing;
+        Status = eManagerStatus.Started;
     }
 
 	public void ApplyTransformation()

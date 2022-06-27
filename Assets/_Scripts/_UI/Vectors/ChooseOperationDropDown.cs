@@ -7,8 +7,6 @@ using System;
 
 public class ChooseOperationDropDown : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _explanationText;
-
     private TMP_Dropdown dropDown;
 
     // Start is called before the first frame update
@@ -16,7 +14,7 @@ public class ChooseOperationDropDown : MonoBehaviour
     {
         dropDown = GetComponent<TMP_Dropdown>();
         dropDown.onValueChanged.AddListener(delegate { SetVectorOperation(dropDown.value); });
-        dropDown.value = 0;
+        dropDown.value = (int)Managers.Vectors.StartingOperation;
         SetVectorOperation(dropDown.value);
     }
 
@@ -25,8 +23,6 @@ public class ChooseOperationDropDown : MonoBehaviour
     public void SetVectorOperation(int operationIndex)
     {
         eVectorOperations operation = (eVectorOperations)operationIndex;
-        Managers.Vectors.vectorOperation.operation = operation;
-        _explanationText.text = Explanations.ExplanationByVectorOperation[operation];
-        Managers.Vectors.UpdateResult();
+        Managers.Vectors.UpdateOperation(operation);
     }
 }

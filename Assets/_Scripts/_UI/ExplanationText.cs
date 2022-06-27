@@ -7,7 +7,7 @@ public class ExplanationText : MonoBehaviour
 {
     private TextMeshProUGUI _explanationText;
 
-    void Start()
+    void Awake()
     {
         _explanationText = GetComponent<TextMeshProUGUI>();
     }
@@ -15,11 +15,13 @@ public class ExplanationText : MonoBehaviour
 	private void OnEnable()
 	{
 		Managers.VisualizationState.VisualizationStateChanged += UpdateExplanationTextToNewState;
+		Managers.Vectors.OperationChanged += UpdateExplanationTextToNewOperation;
 	}
 
 	private void OnDisable()
 	{
 		Managers.VisualizationState.VisualizationStateChanged -= UpdateExplanationTextToNewState;
+		Managers.Vectors.OperationChanged -= UpdateExplanationTextToNewOperation;
 	}
 
 	private void UpdateExplanationTextToNewState(eVisualizationState newState)
@@ -27,11 +29,17 @@ public class ExplanationText : MonoBehaviour
 		switch (newState)
 		{
 			case eVisualizationState.VectorOperations:
-				_explanationText.text = Explanations.ExplanationByVectorOperation[Managers.Vectors.vectorOperation.operation];
+				_explanationText.text = Explanations.ExplanationByVectorOperation[Managers.Vectors.VectorOperation.operation];
 				break;
 			case eVisualizationState.MatrixTransformations:
 				_explanationText.text = Explanations.MatrixTransformationExplanation;
 				break;
 		}
+	}
+
+	private void UpdateExplanationTextToNewOperation()
+	{
+		eVectorOperations operation = Managers.Vectors.VectorOperation.operation;
+		_explanationText.text = Explanations.ExplanationByVectorOperation[operation];
 	}
 }

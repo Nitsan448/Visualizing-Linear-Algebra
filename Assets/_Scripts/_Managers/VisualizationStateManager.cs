@@ -8,7 +8,7 @@ using System;
 public class VisualizationStateManager: MonoBehaviour, IGameManager
 {
 	public static eVisualizationState VisualizationState { get; private set; }
-	public eManagerStatus status { get; private set; }
+	public eManagerStatus Status { get; private set; }
 
 	public event Action<eVisualizationState> VisualizationStateChanged;
 
@@ -20,9 +20,9 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 
 	public void Startup()
 	{
-		status = eManagerStatus.Initializing;
+		Status = eManagerStatus.Initializing;
 		SetVisualizationState(_startingVisualizationState);
-		status = eManagerStatus.Started;
+		Status = eManagerStatus.Started;
 	}
 
 	public void SetVisualizationState(eVisualizationState newState)
