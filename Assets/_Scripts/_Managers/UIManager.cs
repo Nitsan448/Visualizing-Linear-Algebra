@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using TMPro;
 
@@ -18,16 +19,17 @@ public class UIManager : MonoBehaviour, IGameManager
     public int numberOfDecimals;
 	public eManagerStatus Status { get; private set; }
 
-    [SerializeField] private GameObject _screenOverlay;
-
     [Header("UI panels")]
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _controlsPanel;
 
+    private Fader _fader;
+
 	public void Startup()
 	{
         Status = eManagerStatus.Initializing;
+        _fader = GetComponent<Fader>();
         Status = eManagerStatus.Started;
 	}
 
@@ -47,15 +49,26 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void ChangeOptionsPanelState()
 	{
-        _screenOverlay.SetActive(!_screenOverlay.activeSelf);
-        _optionsPanel.SetActive(!_optionsPanel.activeSelf);
-        _mainPanel.SetActive(!_mainPanel.activeSelf);
+        ChangePanelState(_optionsPanel);
     }
 
     public void ChangeControlsPanelState()
     {
-        _screenOverlay.SetActive(!_screenOverlay.activeSelf);
-        _controlsPanel.SetActive(!_controlsPanel.activeSelf);
-        _mainPanel.SetActive(!_mainPanel.activeSelf);
+        ChangePanelState(_controlsPanel);
+    }
+
+    private void ChangePanelState(GameObject panel)
+	{
+        _fader.StopAllCoroutines();
+		if (!panel.activeSelf)
+		{
+            _fader.FadeInCanvasGroup(panel.GetComponent<CanvasGroup>());
+            _fader.FadeOutCanvasGroup(_mainPanel.GetComponent<CanvasGroup>());
+		}
+		else
+		{
+            _fader.FadeOutCanvasGroup(panel.GetComponent<CanvasGroup>());
+            _fader.FadeInCanvasGroup(_mainPanel.GetComponent<CanvasGroup>());
+        }
     }
 }

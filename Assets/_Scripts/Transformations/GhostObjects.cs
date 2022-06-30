@@ -62,16 +62,15 @@ public class GhostObjects : MonoBehaviour
     {
         for (int i = 0; i < _ghosts.Count; i++)
         {
-            GameObject ghost = _ghosts[i];
             if (i != _ghosts.Count - 1)
             {
-                MeshExtensions.CopyVertices(ghost.GetComponent<MeshFilter>().mesh, _ghosts[i + 1].GetComponent<MeshFilter>().mesh);
-                TransformExtensions.CopyTransform(ghost.transform, _ghosts[i + 1].transform);
+                MeshExtensions.CopyVertices(_ghosts[i].GetComponent<MeshFilter>().mesh, _ghosts[i + 1].GetComponent<MeshFilter>().mesh);
+                TransformExtensions.CopyTransform(_ghosts[i].transform, _ghosts[i + 1].transform);
             }
             else
             {
-                MeshExtensions.CopyVertices(ghost.GetComponent<MeshFilter>().mesh, _previousObjectMesh);
-                TransformExtensions.CopyTransform(ghost.transform, _previousObjectTransform);
+                MeshExtensions.CopyVertices(_ghosts[i].GetComponent<MeshFilter>().mesh, _previousObjectMesh);
+                TransformExtensions.CopyTransform(_ghosts[i].transform, _previousObjectTransform);
             }
         }
     }

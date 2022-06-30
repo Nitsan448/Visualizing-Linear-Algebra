@@ -8,8 +8,8 @@ using System;
 
 public class SetCursorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-	private delegate void SetCursorDelegate();
-	private SetCursorDelegate _setCursorMethod;
+	private delegate void SetCursor();
+	private SetCursor _setCursorDelegate;
 	private Selectable _selectable;
 
 	private List<Type> _buttonCursorTypes = new List<Type>
@@ -42,11 +42,11 @@ public class SetCursorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExi
 	{
 		if (_buttonCursorTypes.Contains(_selectable.GetType()))
 		{
-			_setCursorMethod = CursorSetter.SetCursorToButton;
+			_setCursorDelegate = CursorSetter.SetCursorToButton;
 		}
 		else if (_inputCursorTypes.Contains(_selectable.GetType()))
 		{
-			_setCursorMethod = CursorSetter.SetCursorToInputField;
+			_setCursorDelegate = CursorSetter.SetCursorToInputField;
 		}
 		else
 		{
@@ -58,7 +58,7 @@ public class SetCursorOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExi
 	{
 		if (_selectable.interactable)
 		{
-			_setCursorMethod();
+			_setCursorDelegate();
 		}
 	}
 

@@ -30,8 +30,8 @@ public class VectorsManager : MonoBehaviour, IGameManager
 		if (StringExtensions.IsVectorStringFormatValid(newVector))
 		{
             Vectors[vectorIndex] = StringExtensions.StringToVector3(newVector);
+            UpdateResult();
         }
-        UpdateResult();
     }
 
     public void UpdateResult()
