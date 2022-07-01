@@ -13,6 +13,7 @@ public class Managers : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 60;
         GetManagers();
         SetStartSequenceOrder();
         StartupManagers();

@@ -11,7 +11,7 @@ public class ObjectTransformInput : MonoBehaviour
     void Awake()
     {
         _vectorInput = GetComponent<TMP_InputField>();
-        _vectorInput.onValueChanged.AddListener(delegate { AttemptToChangeObjectValue(); });
+        _vectorInput.onEndEdit.AddListener(delegate { AttemptToChangeObjectValue(); });
     }
 
 	private void OnEnable()
@@ -54,20 +54,24 @@ public class ObjectTransformInput : MonoBehaviour
 
     public void UpdateVectorUI()
     {
+        TransformationApplier transformationApplier = Managers.Transformations.TransformationApplier;
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
-                Vector4 position = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.position, Managers.Transformations.positionVectorWValue);
+                Vector4 position = TransformExtensions.ConvertToVector4
+                    (Managers.Transformations.ObjectToTransform.position, transformationApplier.PositionVectorWValue);
                 _vectorInput.text = StringExtensions.Vector4ToString(position);
                 break;
 
             case eTransformValue.Rotation:
-                Vector4 rotationEuler = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.eulerAngles, Managers.Transformations.rotationVectorWValue);
+                Vector4 rotationEuler = TransformExtensions.ConvertToVector4
+                    (Managers.Transformations.ObjectToTransform.eulerAngles, transformationApplier.RotationVectorWValue);
                 _vectorInput.text = StringExtensions.Vector4ToString(rotationEuler);
                 break;
 
             case eTransformValue.Scale:
-                Vector4 scale = TransformExtensions.ConvertToVector4(Managers.Transformations.ObjectToTransform.localScale, Managers.Transformations.scaleVectorWValue);
+                Vector4 scale = TransformExtensions.ConvertToVector4
+                    (Managers.Transformations.ObjectToTransform.localScale, transformationApplier.ScaleVectorWValue);
                 _vectorInput.text = StringExtensions.Vector4ToString(scale);
                 break;
         }

@@ -16,7 +16,7 @@ public class MatrixUI : MonoBehaviour
 	{
 		_rectTransform = GetComponent<RectTransform>();
 		_matrixInput = GetComponent<TMP_InputField>();
-		_matrixInput.onValueChanged.AddListener(delegate { UpdateMatrix(); });
+		_matrixInput.onEndEdit.AddListener(delegate { UpdateMatrix(); });
 	}
 
 	private void UpdateMatrix()

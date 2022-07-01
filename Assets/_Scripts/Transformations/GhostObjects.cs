@@ -90,4 +90,13 @@ public class GhostObjects : MonoBehaviour
         float newAlphaValue = _ghostsStartingAlpha - _alphaChangeBetweenGhosts * numberOfAlphaChanges;
         material.color = new Color(material.color.r, material.color.g, material.color.b, newAlphaValue / 255);
     }
+
+    public void DeleteAllGhosts()
+	{
+        foreach(GameObject ghost in _ghosts)
+		{
+            Destroy(ghost);
+		}
+        _ghosts.Clear();
+	}
 }
