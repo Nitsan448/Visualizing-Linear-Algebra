@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class VectorMouseController : MonoBehaviour
 {
-    public eAxes DontControlAxis { get; set; }
-    public int ControlledVectorIndex { get; set; }
+    public int ControlledVectorIndex;
+    public eAxes DontControlAxis;
 
     private Ray _cameraToMouseRay;
     private Plane _planeToCastOn;

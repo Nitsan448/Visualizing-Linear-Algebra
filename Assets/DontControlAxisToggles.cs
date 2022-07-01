@@ -3,26 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DontControlAxisToggles : MonoBehaviour
+public class DontControlAxisToggles : AToggleGroup
 {
-    [SerializeField] private List<Toggle> _toggles;
-
-    private ToggleGroup _toggleGroup;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _toggleGroup = GetComponent<ToggleGroup>();
-        for(int i = 0; i < _toggles.Count; i++)
-		{
-			int temp = i;
-			_toggles[i].onValueChanged.AddListener(delegate { OnToggleValueChanged(_toggles[temp], temp); });
-		}
-    }
-
-    private void OnToggleValueChanged(Toggle toggle, int toggleIndex)
+	protected override int GetStartingToggleIndex()
 	{
-		Debug.Log(toggleIndex);
+		return (int)Managers.Vectors.VectorMouseController.DontControlAxis;
+	}
+
+	protected override void OnToggleValueChanged(Toggle toggle, int toggleIndex)
+	{
 		if (toggle.isOn)
 		{
             Managers.Vectors.VectorMouseController.DontControlAxis = (eAxes)toggleIndex;
@@ -31,6 +20,5 @@ public class DontControlAxisToggles : MonoBehaviour
 		{
 			Managers.Vectors.VectorMouseController.DontControlAxis = eAxes.None;
 		}
-		Debug.Log(Managers.Vectors.VectorMouseController.DontControlAxis);
 	}
 }
