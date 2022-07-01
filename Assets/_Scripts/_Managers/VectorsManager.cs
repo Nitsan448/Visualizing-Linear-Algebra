@@ -9,6 +9,8 @@ public class VectorsManager : MonoBehaviour, IGameManager
     public event Action VectorsUpdated;
 
     public List<Vector3> Vectors = new List<Vector3>();
+    public VectorMouseController VectorMouseController;
+
     public eManagerStatus Status { get; private set; }
     public object Result { get; private set; }
     public VectorsOperator VectorOperation { get; private set; }

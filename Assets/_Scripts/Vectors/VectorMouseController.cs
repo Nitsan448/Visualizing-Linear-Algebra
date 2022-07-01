@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class VectorMouseController : MonoBehaviour
 {
-    [SerializeField] private bool _controlRedVector;
+    public eAxes DontControlAxis { get; set; }
+    public int ControlledVectorIndex { get; set; }
 
-	private void Update()
+    private Ray _cameraToMouseRay;
+    private Plane _planeToCastOn;
+
+    private void Update()
 	{
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -16,42 +20,39 @@ public class VectorMouseController : MonoBehaviour
 
 	private void ControlVectorsWithMouse()
     {
-        Vector3 worldPosition = GetMousePositionInWorld();
-        
-        if (_controlRedVector)
-        {
-            Managers.Vectors.Vectors[0] = worldPosition;
-        }
-        else
-        {
-            Managers.Vectors.Vectors[1] = worldPosition;
-        }
-        Managers.Vectors.UpdateResult();
-    }
-
-    private Vector3 GetMousePositionInWorld()
-	{
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(ray.direction, 0);
-        float distance;
         Vector3 worldPosition = Vector3.zero;
-        if(plane.Raycast(ray, out distance))
-		{
-            worldPosition = ray.GetPoint(distance);
-		}
+        _cameraToMouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        SetPlaneToCastOn();
 
-		return worldPosition;
+        if (_planeToCastOn.Raycast(_cameraToMouseRay, out float distance))
+        {
+            worldPosition = _cameraToMouseRay.GetPoint(distance);
+        }
+
+        if (worldPosition != Vector3.zero)
+		{
+            Managers.Vectors.Vectors[ControlledVectorIndex] = worldPosition;
+            Managers.Vectors.UpdateResult();
+        }
     }
 
-    public void ChangeControlledVector(int newVectorToControl)
+    private void SetPlaneToCastOn()
 	{
-        if(newVectorToControl == 0)
+        Vector3 controlledVector = Managers.Vectors.Vectors[ControlledVectorIndex];
+		switch (DontControlAxis)
 		{
-            _controlRedVector = true;
-		}
-		else
-		{
-            _controlRedVector = false;
-		}
+            case eAxes.X:
+                _planeToCastOn = new Plane(Vector3.left, controlledVector);
+                break;
+            case eAxes.Y:
+                _planeToCastOn = new Plane(Vector3.up, controlledVector);
+                break;
+            case eAxes.Z:
+                _planeToCastOn = new Plane(Vector3.forward, controlledVector);
+                break;
+            default:
+                _planeToCastOn = new Plane(_cameraToMouseRay.direction, 0);
+                break;
+        }
 	}
 }

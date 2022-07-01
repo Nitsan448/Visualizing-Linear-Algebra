@@ -20,7 +20,8 @@ public class CameraOrbit : MonoBehaviour
 
 	private void Start()
 	{
-		_localRotation = new Vector3(-45, 20, 0);
+		//_localRotation = new Vector3(-45, 20, 0);
+		_localRotation = new Vector3(0, 20, 0);
 		_startingCameraDistance = _cameraDistance;
 	}
 
