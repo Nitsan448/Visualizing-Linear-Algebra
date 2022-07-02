@@ -25,7 +25,7 @@ public class VectorsOperator
                 return Vector3.Cross(firstVector, secondVector);
 
             case eVectorOperations.Reflection:
-                return Vector3.Reflect(firstVector, secondVector);
+                return Vector3.Reflect(firstVector, secondVector.normalized);
 
             case eVectorOperations.Projection:
                 return Vector3.Project(firstVector, secondVector);

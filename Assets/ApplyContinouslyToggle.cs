@@ -10,5 +10,6 @@ public class ApplyContinouslyToggle : MonoBehaviour
         Toggle toggle = GetComponent<Toggle>();
         toggle.isOn = Managers.Transformations.ApplyContinuously;
         toggle.onValueChanged.AddListener(delegate { Managers.Transformations.UpdateApplyContinouslyValue(toggle.isOn); });
+        Managers.Transformations.UpdateApplyContinouslyValue(toggle.isOn);
     }
 }

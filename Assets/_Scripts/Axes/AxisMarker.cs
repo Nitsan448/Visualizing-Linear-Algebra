@@ -96,16 +96,10 @@ public class AxisMarker : MonoBehaviour
 
     private void FlipMarkingsTexts()
 	{
-        int newYRotation = 180;
-        if (_markingTextFlipped)
-        {
-            newYRotation = 0;
-        }
-
         RectTransform[] markings = GetComponentsInChildren<RectTransform>();
         foreach (RectTransform marking in markings)
 		{
-            marking.eulerAngles = new Vector3(0, newYRotation, 0);
+            marking.eulerAngles = new Vector3(0, (marking.eulerAngles.y + 180) % 360, 0);
         }
         _markingTextFlipped = !_markingTextFlipped;
 	}

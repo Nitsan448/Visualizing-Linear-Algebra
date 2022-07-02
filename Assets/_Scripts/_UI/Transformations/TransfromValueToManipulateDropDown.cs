@@ -26,6 +26,7 @@ public class TransfromValueToManipulateDropDown : MonoBehaviour
 		}
 		else
 		{
+            Managers.Transformations.ObjectToTransform.GetComponent<MeshFilter>().mesh.vertices = Managers.Transformations.MeshStartingVertices;
             _objectTransfromInput.gameObject.SetActive(true);
             _objectTransfromInput.UpdateVectorUI();
         }

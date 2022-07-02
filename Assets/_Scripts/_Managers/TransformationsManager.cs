@@ -17,6 +17,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     public eManagerStatus Status { get; private set; }
     public TransformationApplier TransformationApplier { get; private set; }
     public bool ApplyContinuously { get; set; } = false;
+    public Vector3[] MeshStartingVertices { get; set; }
 
     [SerializeField] private GhostObjects _ghostObjects;
 
@@ -24,6 +25,7 @@ public class TransformationsManager : MonoBehaviour, IGameManager
     {
         Status = eManagerStatus.Initializing;
         TransformationApplier = GetComponent<TransformationApplier>();
+        MeshStartingVertices = ObjectToTransform.GetComponent<MeshFilter>().mesh.vertices;
         Status = eManagerStatus.Started;
     }
 
