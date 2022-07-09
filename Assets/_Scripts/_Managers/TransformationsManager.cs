@@ -43,8 +43,18 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 		{
             TransformationApplier.TransformObject();
 
-            TransformationApplied?.Invoke();
+            StartCoroutine(doWhenObjectTransformed());
         }
+    }
+
+    private IEnumerator doWhenObjectTransformed()
+	{
+        while (TransformationApplier.CoroutineActive)
+		{
+            yield return null;
+		}
+
+        TransformationApplied?.Invoke();
     }
 
 
@@ -90,4 +100,19 @@ public class TransformationsManager : MonoBehaviour, IGameManager
             _ghostObjects.DeleteAllGhosts();
         }
     }
+
+    public void ResetObjectToOrigin()
+	{
+        ObjectToTransform.position = Vector3.zero;
+        ObjectToTransform.eulerAngles = Vector3.zero;
+        ObjectToTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        ObjectToTransform.GetComponent<MeshFilter>().mesh.vertices = MeshStartingVertices;
+        _ghostObjects.DeleteAllGhosts();
+    }
+
+    public void UpdateMatrix(Matrix4x4 newMatrix)
+	{
+        Matrix = newMatrix;
+        MatrixUpdated?.Invoke();
+	}
 }

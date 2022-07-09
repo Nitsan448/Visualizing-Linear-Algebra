@@ -16,6 +16,8 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 
 	[SerializeField] private List<GameObject> _transformationsObjects;
 
+	[SerializeField] private List<GameObject> _spanObjects;
+
 	[SerializeField] private eVisualizationState _startingState;
 
 	public void Startup()
@@ -32,16 +34,38 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 		switch (State)
 		{
 			case eVisualizationState.VectorOperations:
-				UpdateObjectsEnabledState(_vectorOperationsObjects, true);
-				UpdateObjectsEnabledState(_transformationsObjects, false);
+				SetVectorOperationsState();
 				break;
 			case eVisualizationState.MatrixTransformations:
-				UpdateObjectsEnabledState(_transformationsObjects, true);
-				UpdateObjectsEnabledState(_vectorOperationsObjects, false);
+				SetTransformationsState();
+				break;
+			case eVisualizationState.Span:
+				SetSpanState();
 				break;
 		}
 
 		StateChanged?.Invoke();
+	}
+
+	private void SetVectorOperationsState()
+	{
+		UpdateObjectsEnabledState(_vectorOperationsObjects, true);
+		UpdateObjectsEnabledState(_transformationsObjects, false);
+		UpdateObjectsEnabledState(_spanObjects, false);
+	}
+
+	private void SetTransformationsState()
+	{
+		UpdateObjectsEnabledState(_transformationsObjects, true);
+		UpdateObjectsEnabledState(_vectorOperationsObjects, false);
+		UpdateObjectsEnabledState(_spanObjects, false);
+	}
+
+	private void SetSpanState()
+	{
+		UpdateObjectsEnabledState(_spanObjects, true);
+		UpdateObjectsEnabledState(_vectorOperationsObjects, false);
+		UpdateObjectsEnabledState(_transformationsObjects, false);
 	}
 
 	private void UpdateObjectsEnabledState(List<GameObject> objectsToUpdate, bool enabled)

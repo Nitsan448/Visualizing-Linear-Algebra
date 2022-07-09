@@ -51,20 +51,10 @@ public static class StringExtensions
         return result;
     }
 
-    private static void RemoveParenthesis(ref string vector)
+    public static void RemoveParenthesis(ref string vector)
     {
-        if (vector.StartsWith("(") && vector.EndsWith(")"))
-        {
-            vector = vector.Substring(1, vector.Length - 2);
-        }
-        else if (vector.StartsWith("("))
-        {
-            vector = vector.Substring(1, vector.Length - 1);
-        }
-        else if (vector.EndsWith(")"))
-        {
-            vector = vector.Substring(0, vector.Length - 2);
-        }
+        vector = vector.Replace("(", string.Empty);
+        vector = vector.Replace(")", string.Empty);
     }
 
     public static string MatrixToString(Matrix4x4 matrix)
@@ -138,5 +128,75 @@ public static class StringExtensions
         stringBuilder.Append(vector.z.ToString(NumberOfDecimals));
         stringBuilder.Append(")");
         return stringBuilder.ToString();
+    }
+
+    public static Matrix4x4 LinearTransformationStringToMatrix(string linearTransformation)
+    {
+        Matrix4x4 result = new Matrix4x4();
+        string[] linearTransformationValues = linearTransformation.Split(',');
+        result.SetRow(0, LinearTransformationValueToMatrixRow(linearTransformationValues[0]));
+        result.SetRow(1, LinearTransformationValueToMatrixRow(linearTransformationValues[1]));
+        result.SetRow(2, LinearTransformationValueToMatrixRow(linearTransformationValues[2]));
+        result.SetRow(3, new Vector4(0, 0, 0, 1));
+
+        Debug.Log(result.ToString());
+        return result;
+    }
+
+    private static Vector4 LinearTransformationValueToMatrixRow(string row)
+    {
+        RemoveIrrelevantChars(ref row);
+        Vector4 result;
+
+        result.x = GetAndRemoveCoefficient(ref row, 'x');
+        result.y = GetAndRemoveCoefficient(ref row, 'y');
+        result.z = GetAndRemoveCoefficient(ref row, 'z');
+
+        bool wValueExists = float.TryParse(row, out float wValue);
+        if (wValueExists)
+        {
+            result.w = wValue;
+        }
+        else
+        {
+            result.w = 0;
+        }
+
+        return result;
+    }
+
+    private static void RemoveIrrelevantChars(ref string row)
+	{
+        row = row.Replace(" ", string.Empty);
+        row = row.Replace("+", string.Empty);
+        row = row.Replace("\n", string.Empty);
+        RemoveParenthesis(ref row);
+    }
+
+    //Change method name
+    private static float GetAndRemoveCoefficient(ref string row, char valueToFindCoefficientOf)
+    {
+        float result;
+        int indexOfChar = row.IndexOf(valueToFindCoefficientOf);
+        if (indexOfChar == -1)
+        {
+            result = 0;
+        }
+        else if (indexOfChar == 0)
+        {
+            result = 1;
+            row = row.Remove(0, indexOfChar + 1);
+        }
+        else
+        {
+            result = float.Parse(row.Substring(0, indexOfChar));
+            row = row.Remove(0, indexOfChar + 1);
+        }
+        return result;
+    }
+
+    public static string MatrixToLinearTransformationString()
+    {
+        return string.Empty;
     }
 }

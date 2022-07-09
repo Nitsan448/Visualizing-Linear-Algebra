@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
-public enum eVisualizationState
+public static class LinearAndMatrixTransformationsConverter
 {
-	VectorOperations,
-	MatrixTransformations,
-	Span,
+
 }
