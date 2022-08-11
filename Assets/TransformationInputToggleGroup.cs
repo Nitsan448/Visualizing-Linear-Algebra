@@ -18,8 +18,6 @@ public class TransformationInputToggleGroup : AToggleGroup
 		if(toggleIndex == 0)
 		{
 			MatrixInput.SetActive(toggle.isOn);
-			Managers.Transformations.UpdateMatrix
-			(StringExtensions.LinearTransformationStringToMatrix(FunctionInput.GetComponentInChildren<TMPro.TMP_InputField>().text));
 			FunctionInput.SetActive(!toggle.isOn);
 		}
 		else

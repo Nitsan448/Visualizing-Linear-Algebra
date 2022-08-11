@@ -80,9 +80,8 @@ public class TransformationsManager : MonoBehaviour, IGameManager
 	{
 		if (StringExtensions.IsMatrixStringFormatValid(newMatrix))
 		{
-            Managers.Transformations.Matrix = StringExtensions.StringToMatrix(newMatrix);
+            UpdateMatrix(StringExtensions.StringToMatrix(newMatrix));
 		}
-        MatrixUpdated?.Invoke();
     }
 
     public void UpdateApplyContinouslyValue(bool applyContinously)

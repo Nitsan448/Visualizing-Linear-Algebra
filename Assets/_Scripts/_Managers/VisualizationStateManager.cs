@@ -39,9 +39,9 @@ public class VisualizationStateManager: MonoBehaviour, IGameManager
 			case eVisualizationState.MatrixTransformations:
 				SetTransformationsState();
 				break;
-			case eVisualizationState.Span:
-				SetSpanState();
-				break;
+			//case eVisualizationState.Span:
+				//SetSpanState();
+				//break;
 		}
 
 		StateChanged?.Invoke();

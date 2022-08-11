@@ -4,21 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class linearTransformationUI : MonoBehaviour
+public class LinearTransformationUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private TMP_InputField _linearTransformationInput;
+
+	private void Awake()
+	{
+        _linearTransformationInput = GetComponent<TMP_InputField>();
+	}
+
+	void Start()
     {
-        GetComponent<TMP_InputField>().onEndEdit.AddListener(delegate
+        _linearTransformationInput.onEndEdit.AddListener(delegate
         {
-            Managers.Transformations.UpdateMatrix
-            (StringExtensions.LinearTransformationStringToMatrix(GetComponent<TMP_InputField>().text));
-            Debug.Log(Managers.Transformations.Matrix);
+            Managers.Transformations.UpdateMatrixFromString
+            (StringExtensions.LinearTransformationStringToMatrixString(_linearTransformationInput.text));
         });
     }
 
-	private void OnEnable()
+    private void OnEnable()
+    {
+        Managers.Transformations.MatrixUpdated += UpdateLinearTransfomationUI;
+        UpdateLinearTransfomationUI();
+    }
+
+    private void OnDisable()
+    {
+        Managers.Transformations.MatrixUpdated -= UpdateLinearTransfomationUI;
+    }
+
+
+    private void UpdateLinearTransfomationUI()
 	{
-		//parse matrix to function
-	}
+        _linearTransformationInput.text = StringExtensions.MatrixToLinearTransformationString(Managers.Transformations.Matrix);
+        _linearTransformationInput.pointSize = Managers.UI.FontSizeByNumberOfDecimals[Managers.UI.numberOfDecimals];
+    }
 }

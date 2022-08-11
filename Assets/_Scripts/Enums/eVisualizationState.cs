@@ -6,5 +6,5 @@ public enum eVisualizationState
 {
 	VectorOperations,
 	MatrixTransformations,
-	Span,
+	//Span,
 }

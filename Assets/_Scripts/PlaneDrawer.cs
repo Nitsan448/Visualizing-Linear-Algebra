@@ -44,7 +44,7 @@ public class PlaneDrawer : MonoBehaviour
 	private void DrawReflectionPlane()
 	{
 		quad.gameObject.SetActive(true);
-		float magnitude = Vector3.Magnitude(Managers.Vectors.Vectors[0]) / 1.5f;
+		float magnitude = Vector3.Magnitude(Managers.Vectors.Vectors[1]) / 2;
 		quad.transform.localScale = new Vector3(magnitude, magnitude, magnitude);
 		quad.transform.LookAt(Managers.Vectors.Vectors[1]);
 	}

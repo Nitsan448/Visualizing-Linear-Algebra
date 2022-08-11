@@ -130,17 +130,20 @@ public static class StringExtensions
         return stringBuilder.ToString();
     }
 
-    public static Matrix4x4 LinearTransformationStringToMatrix(string linearTransformation)
+    public static string LinearTransformationStringToMatrixString(string linearTransformation)
     {
-        Matrix4x4 result = new Matrix4x4();
-        string[] linearTransformationValues = linearTransformation.Split(',');
-        result.SetRow(0, LinearTransformationValueToMatrixRow(linearTransformationValues[0]));
-        result.SetRow(1, LinearTransformationValueToMatrixRow(linearTransformationValues[1]));
-        result.SetRow(2, LinearTransformationValueToMatrixRow(linearTransformationValues[2]));
-        result.SetRow(3, new Vector4(0, 0, 0, 1));
+        StringBuilder stringBuilder = new StringBuilder("(");
 
-        Debug.Log(result.ToString());
-        return result;
+        string[] linearTransformationValues = linearTransformation.Split('\n');
+        stringBuilder.Append(LinearTransformationValueToMatrixRow(linearTransformationValues[0]));
+        stringBuilder.Append(Environment.NewLine);
+        stringBuilder.Append(LinearTransformationValueToMatrixRow(linearTransformationValues[1]));
+        stringBuilder.Append(Environment.NewLine);
+        stringBuilder.Append(LinearTransformationValueToMatrixRow(linearTransformationValues[2]));
+        stringBuilder.Append(Environment.NewLine);
+        stringBuilder.Append("(0, 0, 0, 1)");
+
+        return stringBuilder.ToString();
     }
 
     private static Vector4 LinearTransformationValueToMatrixRow(string row)
@@ -148,9 +151,9 @@ public static class StringExtensions
         RemoveIrrelevantChars(ref row);
         Vector4 result;
 
-        result.x = GetAndRemoveCoefficient(ref row, 'x');
-        result.y = GetAndRemoveCoefficient(ref row, 'y');
-        result.z = GetAndRemoveCoefficient(ref row, 'z');
+        result.x = GetAndRemoveCoefficient(ref row, 'X');
+        result.y = GetAndRemoveCoefficient(ref row, 'Y');
+        result.z = GetAndRemoveCoefficient(ref row, 'Z');
 
         bool wValueExists = float.TryParse(row, out float wValue);
         if (wValueExists)
@@ -178,6 +181,10 @@ public static class StringExtensions
     {
         float result;
         int indexOfChar = row.IndexOf(valueToFindCoefficientOf);
+        if(indexOfChar == -1)
+		{
+            indexOfChar = row.IndexOf(valueToFindCoefficientOf.ToString().ToLower());
+		}
         if (indexOfChar == -1)
         {
             result = 0;
@@ -189,14 +196,59 @@ public static class StringExtensions
         }
         else
         {
-            result = float.Parse(row.Substring(0, indexOfChar));
+            float.TryParse(row.Substring(0, indexOfChar), out result);
             row = row.Remove(0, indexOfChar + 1);
         }
         return result;
     }
 
-    public static string MatrixToLinearTransformationString()
+    public static string MatrixToLinearTransformationString(Matrix4x4 matrix)
     {
-        return string.Empty;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append(Vector4ToLinearTransformationRow(matrix.GetRow(0)));
+        stringBuilder.Append(Environment.NewLine);
+        stringBuilder.Append(Vector4ToLinearTransformationRow(matrix.GetRow(1)));
+        stringBuilder.Append(Environment.NewLine);
+        stringBuilder.Append(Vector4ToLinearTransformationRow(matrix.GetRow(2)));
+        return stringBuilder.ToString();
     }
+
+    private static string Vector4ToLinearTransformationRow(Vector4 vector)
+	{
+        StringBuilder stringBuilder = new StringBuilder("(");
+        stringBuilder.Append(GetCoefficientStringFromValue(vector.x, "X"));
+        if(vector.y != 0 && !stringBuilder.ToString().Equals("("))
+		{
+            stringBuilder.Append("+");
+		}
+        stringBuilder.Append(GetCoefficientStringFromValue(vector.y, "Y"));
+        if (vector.z != 0 && !stringBuilder.ToString().Equals("("))
+        {
+            stringBuilder.Append("+");
+        }
+        stringBuilder.Append(GetCoefficientStringFromValue(vector.z, "Z"));
+        if (vector.w != 0 && !stringBuilder.ToString().Equals("("))
+        {
+            stringBuilder.Append("+");
+        }
+        stringBuilder.Append(GetCoefficientStringFromValue(vector.w, string.Empty));
+        stringBuilder.Append(")");
+        return stringBuilder.ToString();
+    }
+
+    private static string GetCoefficientStringFromValue(float value, string valueToGetCoefficientOf)
+	{
+        if(value == 1 && valueToGetCoefficientOf != string.Empty)
+		{
+            return valueToGetCoefficientOf;
+		}
+        else if(value != 0)
+		{
+            return value.ToString(NumberOfDecimals) + valueToGetCoefficientOf;
+        }
+		else
+		{
+            return string.Empty;
+		}
+	}
 }
