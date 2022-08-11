@@ -180,6 +180,7 @@ public static class StringExtensions
     private static float GetAndRemoveCoefficient(ref string row, char valueToFindCoefficientOf)
     {
         float result;
+        bool coefficientIsNegative = row.Contains("-");
         int indexOfChar = row.IndexOf(valueToFindCoefficientOf);
         if(indexOfChar == -1)
 		{
@@ -196,7 +197,14 @@ public static class StringExtensions
         }
         else
         {
-            float.TryParse(row.Substring(0, indexOfChar), out result);
+            if(row[indexOfChar - 1] == '-')
+			{
+                result = -1;
+			}
+			else
+			{
+                float.TryParse(row.Substring(0, indexOfChar), out result);
+			}
             row = row.Remove(0, indexOfChar + 1);
         }
         return result;
