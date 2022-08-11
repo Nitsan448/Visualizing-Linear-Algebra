@@ -55,7 +55,6 @@ public class ObjectTransformInput : MonoBehaviour
     public void UpdateVectorUI()
     {
         TransformationApplier transformationApplier = Managers.Transformations.TransformationApplier;
-        Debug.Log("58");
         switch (Managers.Transformations.transformValueToManipulate)
         {
             case eTransformValue.Position:
