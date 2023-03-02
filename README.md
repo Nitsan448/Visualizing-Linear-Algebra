@@ -13,15 +13,14 @@
 
 ## Overview
 
-A learning tool that allows experimentation with Linear Algebra concepts.
+**A learning tool that allows experimentation with Linear Algebra concepts.**
 
-The architecture for this project is the following:
-Every main part of the project has a manager,
+Each main aspect of the tool has a manager script,<br/>
 which exposes important variables, method and actions regarding this part.
 
-For example, the **TransformationsManager** holds the value of the transformation matrix,
-methods such as **InvertMatrix** and **TransposeMatrix**,
-and the **MatrixUpdated** action, which allows the UI to update when the matrix was updated
+For example, the **TransformationsManager** holds the value of the transformation matrix,<br/>
+methods such as **InvertMatrix** and **TransposeMatrix**,<br/>
+and the **MatrixUpdated** action, which allows the UI to update and show the new matrix.
 
 ### Built With
 
@@ -29,6 +28,10 @@ C#, Unity.
 
 ## Features
 
+* Visualization of vector operations - Addition, Projection, Reflection, Dot product and Cross product,<br/>
+and of matrix transformations applied on an object's vertices, position, rotation, or scale.
+* Easy control over matrix and vector values, using mouse, text, or utility methods.
+* Visualization of an axis system, planes and vectors.
 
 ## Contact
 
