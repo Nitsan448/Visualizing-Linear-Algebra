@@ -1,7 +1,5 @@
 # Linear-Algebra-Visualizer
 
-![yHBZJe](https://user-images.githubusercontent.com/51084989/222439076-1bb55baf-0629-4d5b-be17-72e726a8b198.png)
-
 **You can try the tool here - https://nitsan.itch.io/linear-algebra-visualizer**
 
 ## Table of Contents
@@ -12,6 +10,8 @@
 - [Contact](#contact)
 
 ## Overview
+
+![yHBZJe](https://user-images.githubusercontent.com/51084989/222439076-1bb55baf-0629-4d5b-be17-72e726a8b198.png)
 
 **A learning tool that allows experimentation with Linear Algebra concepts.**
 
