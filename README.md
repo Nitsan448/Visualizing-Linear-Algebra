@@ -16,7 +16,7 @@
 **A learning tool that allows experimentation with Linear Algebra concepts.**
 
 Each main aspect of the tool has a manager script,<br/>
-which exposes important variables, method and actions regarding this part.
+which exposes important variables, methods and actions regarding this part.
 
 For example, the TransformationsManager holds the value of the transformation matrix,<br/>
 methods such as InvertMatrix and TransposeMatrix,<br/>
